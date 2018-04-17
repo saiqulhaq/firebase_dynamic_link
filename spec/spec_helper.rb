@@ -1,5 +1,9 @@
 require "bundler/setup"
 require "firebase_dynamic_link"
+begin
+  require 'pry'
+rescue LoadError
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

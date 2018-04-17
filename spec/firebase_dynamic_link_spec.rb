@@ -1,9 +1,16 @@
 RSpec.describe FirebaseDynamicLink do
-  it "has a version number" do
+  it 'has a version number' do
     expect(FirebaseDynamicLink::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  describe '#config' do
+    subject { described_class.config }
+    it 'has adapter attributes' do
+      is_expected.to respond_to(:adapter)
+      is_expected.to respond_to(:adapter=)
+
+      subject.adapter = :foo
+      expect(subject.adapter).to eq(:foo)
+    end
   end
 end
