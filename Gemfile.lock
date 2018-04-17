@@ -2,11 +2,9 @@ PATH
   remote: .
   specs:
     firebase_dynamic_link (0.1.0)
-      dotenv (~> 2.2.2)
       dry-configurable (~> 0.7.0)
       dry-core (~> 0.4.5)
       faraday (~> 0.14.0)
-      vcr (~> 4.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -47,10 +45,12 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
+  dotenv (~> 2.2, >= 2.2.2)
   firebase_dynamic_link!
   pry (~> 0.11.3)
   rake (~> 10.0)
   rspec (~> 3.0)
+  vcr (~> 4.0, >= 4.0.0)
 
 BUNDLED WITH
    1.16.1

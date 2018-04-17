@@ -1,5 +1,9 @@
 # FirebaseDynamicLink
 
+[![Build Status](https://travis-ci.org/saiqulhaq/firebase_dynamic_link.svg?branch=master)](https://travis-ci.org/saiqulhaq/firebase_dynamic_link)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0e2629515335c72ef80d/maintainability)](https://codeclimate.com/github/saiqulhaq/firebase_dynamic_link/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/0e2629515335c72ef80d/test_coverage)](https://codeclimate.com/github/saiqulhaq/firebase_dynamic_link/test_coverage)
+
 Opiniated Ruby Firebase Dynamic Links Short Links client 
 
 based on reference https://firebase.google.com/docs/reference/dynamic-links/link-shortener
