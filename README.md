@@ -37,7 +37,7 @@ FirebaseDynamicLink.configure do |config|
 
   config.api_key = 'API_KEY'
 
-  config.default.suffix.option = 'SHORTEN' or 'UNGUESSABLE'
+  config.default.suffix.option = 'SHORT' or 'UNGUESSABLE'
 
   config.default.dynamic_link_domain = 'http://xyz.app.goo.gl'
 
@@ -77,7 +77,7 @@ if request successful, then the result should be like following hash object
 }
 ```
 
-otherwise it raises FirebaseDynamicLink::ConnectionError exception, with message = http error message
+otherwise it raises `FirebaseDynamicLink::ConnectionError`, with message = http error message
 
 # NOTE
 
