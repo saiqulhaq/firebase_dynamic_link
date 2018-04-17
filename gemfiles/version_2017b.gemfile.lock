@@ -1,7 +1,9 @@
 PATH
   remote: ..
   specs:
-    firebase_dynamic_link (0.1.0)
+    firebase_dynamic_link (0.1.2)
+      dry-configurable (~> 0.5, >= 0.5.0)
+      faraday (~> 0.9, >= 0.9.2)
 
 GEM
   remote: https://rubygems.org/
@@ -44,7 +46,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal
+  appraisal (~> 2.2.0)
   bundler (~> 1.16)
   dotenv (~> 2.2, >= 2.2.2)
   dry-configurable (= 0.6.0)

@@ -13,7 +13,6 @@ RSpec.describe FirebaseDynamicLink::Client do
       VCR.use_cassette('shorten_link') do
         option = { suffix_option: 'SHORT' }
         result = instance.shorten_link(link, option)
-        expect(result[:success]).to be_truthy
         expect(result[:link]).to_not eq('')
       end
     end
@@ -21,9 +20,23 @@ RSpec.describe FirebaseDynamicLink::Client do
     it 'raise FirebaseDynamicLink::Error if link is invalid' do
       link = 'abcde'
       VCR.use_cassette('shorten_link_error') do
-        result = instance.shorten_link(link)
-        expect(result[:success]).to be_falsey
-        expect(result[:link]).to be_nil
+        expect { instance.shorten_link(link) }.to raise_error(FirebaseDynamicLink::ConnectionError)
+      end
+    end
+
+    it 'raises error if exceeding timeout' do
+      options = {
+        open_timeout: 1,
+        timeout: 1
+      }
+      %w(
+        https://httpstat.us/524
+        https://httpstat.us/504
+        https://httpstat.us/522
+        https://httpstat.us/408
+      ).each do |link|
+        allow(instance).to receive(:end_point).and_return(link)
+        expect { instance.shorten_link('', options) }.to raise_error(FirebaseDynamicLink::ConnectionError)
       end
     end
   end

@@ -40,12 +40,17 @@ FirebaseDynamicLink.configure do |config|
   config.default.suffix.option = 'SHORTEN' or 'UNGUESSABLE'
 
   config.default.dynamic_link_domain = 'http://xyz.app.goo.gl'
+
+  config.timeout = 3 # timeout and open timeout for global request
+  config.open_timeout = 3
 end
 
 client = FirebaseDynamicLink::Client.new
 options = {
-  suffix_option: '' # to override default suffix default config 
-  dynamic_link_domain: '' # to override default dynamic_link_domain default config
+  suffix_option: '', # to override default suffix default config 
+  dynamic_link_domain: '', # to override default dynamic_link_domain default config
+  timeout: 10, # timeout and open timeout for each request
+  open_timeout: 10
 }
 result = client.shorten_link(link, options)
 # options argument is optional
@@ -56,7 +61,6 @@ if request successful, then the result should be like following hash object
 
 ```ruby
 { 
-  :success=>true, 
   :link=>"https://--.app.goo.gl/ukph", 
   :preview_link=>"https://--.app.goo.gl/ukph?d=1", 
   :warning=>[
@@ -69,25 +73,11 @@ if request successful, then the result should be like following hash object
        {
          "warningCode"=>"..."
        }
-    ], 
-  :error_message=>nil, 
-  :error_status=>nil, 
-  :error_code=>nil
+    ]
 }
 ```
 
-otherwise
-
-```ruby
-{ :success=>false,
-  :link=>nil,
-  :preview_link=>nil, 
-  :warning=>nil,
-  :error_message=>"Long link is not parsable: ...",
-  :error_status=>"INVALID_ARGUMENT",
-  :error_code=>400
-}
-```
+otherwise it raises FirebaseDynamicLink::ConnectionError exception, with message = http error message
 
 # NOTE
 

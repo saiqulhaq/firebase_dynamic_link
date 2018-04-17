@@ -2,7 +2,7 @@ require 'faraday'
 
 RSpec.describe FirebaseDynamicLink do
   it 'has a version number' do
-    expect(FirebaseDynamicLink::VERSION).to eq('0.1.0')
+    expect(FirebaseDynamicLink::VERSION).to eq('0.1.2')
   end
 
   describe '#config' do

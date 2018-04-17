@@ -7,6 +7,7 @@ module FirebaseDynamicLink
   extend Dry::Configurable
 
   class InvalidConfig < StandardError; end
+  class ConnectionError < StandardError; end
 
   # You can change it to
   # FirebaseDynamicLink.adapter = :patron
@@ -18,6 +19,12 @@ module FirebaseDynamicLink
   setting :adapter, Faraday.default_adapter
 
   setting :api_key
+
+  # Timeout default setting is 3 seconds
+  setting :timeout, 3
+
+  # Open timeout default setting is 3 seconds
+  setting :open_timeout, 3
 
   # This domain will be used if dynamic_link_domain setting is nil
   # it raises error if both of settings are nil
