@@ -21,10 +21,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'dry-core', '~> 0.4.5'
-  spec.add_runtime_dependency 'dry-configurable', '~> 0.7.0'
-  spec.add_runtime_dependency 'faraday', '~> 0.14.0'
+  spec.add_runtime_dependency 'dry-configurable', '>= 0.5.0'
+  spec.add_runtime_dependency 'faraday', '>= 0.9.2'
 
+  spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'vcr', '~> 4.0', '>= 4.0.0'
   spec.add_development_dependency 'dotenv', '~> 2.2', '>= 2.2.2'
   spec.add_development_dependency 'bundler', '~> 1.16'

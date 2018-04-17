@@ -1,5 +1,3 @@
-require 'dry-core'
-
 module FirebaseDynamicLink
   class Client
     attr_accessor :dynamic_link_domain
