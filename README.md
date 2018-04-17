@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/saiqulhaq/firebase_dynamic_link.svg?branch=master)](https://travis-ci.org/saiqulhaq/firebase_dynamic_link)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0e2629515335c72ef80d/maintainability)](https://codeclimate.com/github/saiqulhaq/firebase_dynamic_link/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0e2629515335c72ef80d/test_coverage)](https://codeclimate.com/github/saiqulhaq/firebase_dynamic_link/test_coverage)
+[![Gem Version](https://badge.fury.io/rb/firebase_dynamic_link.svg)](https://badge.fury.io/rb/firebase_dynamic_link)
 
 Opiniated Ruby Firebase Dynamic Links Short Links client 
 
