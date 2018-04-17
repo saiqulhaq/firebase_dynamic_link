@@ -15,7 +15,6 @@ RSpec.describe FirebaseDynamicLink::Client do
         result = instance.shorten_link(link, option)
         expect(result[:success]).to be_truthy
         expect(result[:link]).to_not eq('')
-        puts result
       end
     end
 
@@ -25,7 +24,6 @@ RSpec.describe FirebaseDynamicLink::Client do
         result = instance.shorten_link(link)
         expect(result[:success]).to be_falsey
         expect(result[:link]).to be_nil
-        puts result
       end
     end
   end
