@@ -24,7 +24,7 @@ module FirebaseDynamicLink
       else
         raise_error(response)
       end
-    rescue Faraday::ConnectionFailed => e
+    rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
       raise FirebaseDynamicLink::ConnectionError, e.message
     end
 
