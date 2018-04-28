@@ -40,10 +40,10 @@ FirebaseDynamicLink.configure do |config|
   config.api_key = 'API_KEY'
 
   # default 'UNGUESSABLE'
-  config.default.suffix.option = 'SHORT' or 'UNGUESSABLE'
+  config.suffix_option = 'SHORT' or 'UNGUESSABLE'
 
   # required
-  config.default.dynamic_link_domain = 'http://xyz.app.goo.gl'
+  config.dynamic_link_domain = 'http://xyz.app.goo.gl'
 
   # default 3 seconds
   config.timeout = 3 
