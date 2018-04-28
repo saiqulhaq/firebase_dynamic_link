@@ -33,27 +33,42 @@ Or install it yourself as:
 FirebaseDynamicLink.configure do |config|
   # the adapter should be supported by Faraday
   # more info look at https://github.com/lostisland/faraday/tree/master/test/adapters
+  # Faraday.default_adapter is the default adapter
   config.adapter = :httpclient
 
+  # required
   config.api_key = 'API_KEY'
 
+  # default 'UNGUESSABLE'
   config.default.suffix.option = 'SHORT' or 'UNGUESSABLE'
 
+  # required
   config.default.dynamic_link_domain = 'http://xyz.app.goo.gl'
 
-  config.timeout = 3 # timeout and open timeout for global request
+  # default 3 seconds
+  config.timeout = 3 
+
+  # default 3 seconds
   config.open_timeout = 3
 end
 
 client = FirebaseDynamicLink::Client.new
 options = {
-  suffix_option: '', # to override default suffix default config 
-  dynamic_link_domain: '', # to override default dynamic_link_domain default config
-  timeout: 10, # timeout and open timeout for each request
+  # optional, to override default suffix default config 
+  suffix_option: '', 
+
+  # optional, to override default dynamic_link_domain default config
+  dynamic_link_domain: '', 
+
+  # optional, timeout of each request of this instance
+  timeout: 10, 
+
+  # optional, open timeout of each request of this instance
   open_timeout: 10
 }
-result = client.shorten_link(link, options)
+
 # options argument is optional
+result = client.shorten_link(link, options)
 
 ```
 

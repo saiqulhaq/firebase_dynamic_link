@@ -10,9 +10,10 @@ Gem::Specification.new do |spec|
   spec.email         = ['saiqulhaq@gmail.com']
 
   spec.summary       = 'Ruby client for Firebase Dynamic Link service'
-  spec.description   = 'Ruby client API for Firebase Dynamic Link'
+  spec.description   = spec.summary
   spec.homepage      = 'https://github.com/saiqulhaq/firebase_dynamic_link'
   spec.license       = 'MIT'
+  spec.metadata["yard.run"] = 'yri'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
