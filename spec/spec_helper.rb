@@ -26,6 +26,12 @@ begin
 rescue LoadError
 end
 
+require "dry/configurable/test_interface"
+
+module FirebaseDynamicLink
+  extend Dry::Configurable::TestInterface
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"

@@ -4,16 +4,18 @@ module FirebaseDynamicLink
   class Client
     attr_accessor :dynamic_link_domain
 
-    # on succeed
-    #
-    # on failure
-    #   status >= 400
-    #   body {"error"=>{"code"=>400, "message"=>"Long link is not parsable: https://k4mu4.app.goo.gl?link=abcde [https://firebase.google.com/docs/dynamic-links/rest#create_a_short_link_from_parameters]", "status"=>"INVALID_ARGUMENT"}}
+    # @param link String
+    # @param options Hash
+    # @return
+    #   on succeed
+    #   on failure
+    #     status >= 400
+    #     body {"error"=>{"code"=>400, "message"=>"Long link is not parsable: https://k4mu4.app.goo.gl?link=abcde [https://firebase.google.com/docs/dynamic-links/rest#create_a_short_link_from_parameters]", "status"=>"INVALID_ARGUMENT"}}
     def shorten_link(link, options = {})
       build_connection_options(connection, options)
 
       suffix_option = options.delete(:suffix_option)
-      suffix_option ||= config.default.suffix.option
+      suffix_option ||= config.suffix_option
 
       response = connection.post(nil, {
         longDynamicLink: build_link(link, options),
@@ -38,7 +40,7 @@ module FirebaseDynamicLink
 
     def build_link(link, options)
       dynamic_link_domain = options.delete(:dynamic_link_domain)
-      dynamic_link_domain ||= config.default.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig, "Dynamic link domain is empty")
+      dynamic_link_domain ||= config.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig, "Dynamic link domain is empty")
       "#{dynamic_link_domain}?link=#{link}"
     end
 

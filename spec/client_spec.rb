@@ -2,10 +2,11 @@
 
 RSpec.describe FirebaseDynamicLink::Client do
   let(:instance) { described_class.new }
+  before(:all) { FirebaseDynamicLink.reset_config }
   before do
     FirebaseDynamicLink.configure do |config|
       config.api_key = ENV["API_KEY"]
-      config.default.dynamic_link_domain = ENV["DYNAMIC_LINK_DOMAIN"]
+      config.dynamic_link_domain = ENV["DYNAMIC_LINK_DOMAIN"]
     end
   end
 
