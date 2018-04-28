@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FirebaseDynamicLink
   class Client
     attr_accessor :dynamic_link_domain
@@ -36,7 +38,7 @@ module FirebaseDynamicLink
 
     def build_link(link, options)
       dynamic_link_domain = options.delete(:dynamic_link_domain)
-      dynamic_link_domain ||= config.default.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig, 'Dynamic link domain is empty')
+      dynamic_link_domain ||= config.default.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig, "Dynamic link domain is empty")
       "#{dynamic_link_domain}?link=#{link}"
     end
 
@@ -48,7 +50,7 @@ module FirebaseDynamicLink
 
     def connection
       @connection ||= Faraday::Connection.new(url: end_point,
-                                              headers: { 'Content-Type' => 'application/json' })
+                                              headers: { "Content-Type" => "application/json" })
     end
 
     def config
@@ -64,8 +66,8 @@ module FirebaseDynamicLink
       if message.nil?
         message = begin
                     body = JSON.parse(response.body)
-                    body['error']['message']
-                  rescue
+                    body["error"]["message"]
+                  rescue StandardError
                     response.body
                   end
       end
@@ -74,11 +76,11 @@ module FirebaseDynamicLink
 
     def render_success(response)
       body = JSON.parse(response.body)
-      has_error = body.key?('error')
+      has_error = body.key?("error")
       {
-        link: has_error ? nil : body['shortLink'],
-        preview_link: has_error ? nil : body['previewLink'],
-        warning: has_error ? nil : body['warning']
+        link: has_error ? nil : body["shortLink"],
+        preview_link: has_error ? nil : body["previewLink"],
+        warning: has_error ? nil : body["warning"]
       }
     end
   end
