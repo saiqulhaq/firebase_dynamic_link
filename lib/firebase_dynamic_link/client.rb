@@ -41,8 +41,8 @@ module FirebaseDynamicLink
     end
 
     def build_connection_options(c, options)
-      c.options.timeout = 1 if options.key?(:timeout)
-      c.options.open_timeout = 1 if options.key?(:open_timeout)
+      c.options.timeout = options.delete(:timeout) if options.key?(:timeout)
+      c.options.open_timeout = options.delete(:open_timeout) if options.key?(:open_timeout)
       c
     end
 
