@@ -3,6 +3,7 @@
 require "dry-configurable"
 require "faraday"
 require "firebase_dynamic_link/client"
+require "firebase_dynamic_link/link_renderer"
 require "firebase_dynamic_link/version"
 
 module FirebaseDynamicLink
@@ -10,6 +11,7 @@ module FirebaseDynamicLink
 
   class InvalidConfig < StandardError; end
   class ConnectionError < StandardError; end
+  class QuotaExceeded < StandardError; end
 
   # @!group Configuration
   # @!method adapter

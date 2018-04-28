@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe FirebaseDynamicLink::Client do
-  let(:instance) { described_class.new }
   before(:all) { FirebaseDynamicLink.reset_config }
+
   before do
     FirebaseDynamicLink.configure do |config|
       config.api_key = ENV["API_KEY"]
@@ -13,38 +13,46 @@ RSpec.describe FirebaseDynamicLink::Client do
   describe "#shorten_link" do
     it "shorten link correctly" do
       link = "http://saiqulhaq.com"
-      VCR.use_cassette("shorten_link") do
-        option = { suffix_option: "SHORT" }
-        result = instance.shorten_link(link, option)
+      VCR.use_cassette("shorten_link-SHORT") do
+        options = { suffix_option: "SHORT" }
+        result = subject.shorten_link(link, options)
+        expect(result[:link]).to_not eq("")
+        expect(result[:link]).to_not eq(link)
+      end
+
+      VCR.use_cassette("shorten_link-UNGUESSABLE") do
+        options = { suffix_option: "UNGUESSABLE", timout: 5 }
+        result = subject.shorten_link(link, options)
         expect(result[:link]).to_not eq("")
         expect(result[:link]).to_not eq(link)
       end
     end
 
-    it "raise FirebaseDynamicLink::Error if link is invalid" do
-      link = "abcde"
-      VCR.use_cassette("shorten_link_error") do
-        expect { instance.shorten_link(link) }.to raise_error(FirebaseDynamicLink::ConnectionError)
+    it 'raise FirebaseDynamicLink::ConnectionError if Faraday::ConnectionFailed raised' do
+      connection = Class.new do
+        def post(*)
+          raise Faraday::ConnectionFailed, 'test'
+        end
       end
+      allow_any_instance_of(described_class).to receive(:connection).and_return(connection.new)
+      expect {
+        subject.shorten_link('http://saiqulhaq.com')
+      }.to raise_error(FirebaseDynamicLink::ConnectionError)
     end
 
-    it "raises error if exceeding timeout" do
-      options = {
-        open_timeout: 1,
-        timeout: 1
-      }
-      %w[
-        https://httpstat.us/524
-        https://httpstat.us/504
-        https://httpstat.us/522
-        https://httpstat.us/408
-      ].each do |link|
-        allow(instance).to receive(:end_point).and_return(link)
-        expect { instance.shorten_link("", options) }.to raise_error(FirebaseDynamicLink::ConnectionError)
+    it 'raise FirebaseDynamicLink::ConnectionError if Faraday::TimeoutError raised' do
+      connection = Class.new do
+        def post(*)
+          raise Faraday::TimeoutError, 'test'
+        end
       end
+      allow_any_instance_of(described_class).to receive(:connection).and_return(connection.new)
+      expect {
+        subject.shorten_link('http://saiqulhaq.com')
+      }.to raise_error(FirebaseDynamicLink::ConnectionError)
     end
   end
 
-  describe "#shorten_object" do
-  end
+  # describe "#shorten_object" do
+  # end
 end

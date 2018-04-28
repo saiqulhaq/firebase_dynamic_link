@@ -1,42 +1,53 @@
 # frozen_string_literal: true
 
+require "firebase_dynamic_link/connection"
+require "firebase_dynamic_link/link_renderer"
+
 module FirebaseDynamicLink
   class Client
     attr_accessor :dynamic_link_domain
+    extend Forwardable
 
-    # @param link String
-    # @param options Hash
-    # @return
-    #   on succeed
-    #   on failure
-    #     status >= 400
-    #     body {"error"=>{"code"=>400, "message"=>"Long link is not parsable: https://k4mu4.app.goo.gl?link=abcde [https://firebase.google.com/docs/dynamic-links/rest#create_a_short_link_from_parameters]", "status"=>"INVALID_ARGUMENT"}}
+    def initialize
+      @link_renderer = FirebaseDynamicLink::LinkRenderer.new
+      @connection = FirebaseDynamicLink::Connection.new(end_point)
+    end
+
+    # @param link [String] required
+    # @param options [Hash]
+    #   * :timeout optional, default is FirebaseDynamicLink.config.timout
+    #   * :open_timeout [Integer] optional, default is FirebaseDynamicLink.config.open_timout
+    #   * :suffix_option [String] optional, default is FirebaseDynamicLink.config.suffix_option
+    #   * :dynamic_link_domain [String] optional, default is FirebaseDynamicLink.config.dynamic_link_domain
+    # @return [Hash{Symbol=>String}]
+    # @see FirebaseDynamicLink::LinkRenderer#render LinkRenderer#render for returned Hash
     def shorten_link(link, options = {})
-      build_connection_options(connection, options)
+      connection.timeout = options[:timeout] if options.key?(:timeout)
+      connection.open_timeout = options[:open_timeout] if options.key?(:open_timeout)
 
-      suffix_option = options.delete(:suffix_option)
-      suffix_option ||= config.suffix_option
+      suffix_option = options[:suffix_option] if options.key?(:suffix_option)
 
       response = connection.post(nil, {
         longDynamicLink: build_link(link, options),
         suffix: {
-          option: suffix_option
+          option: suffix_option || config.suffix_option
         }
       }.to_json)
-      if response.status.between?(200, 299)
-        render_success(response)
-      else
-        raise_error(response)
-      end
+      link_renderer.render(response)
     rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
       raise FirebaseDynamicLink::ConnectionError, e.message
     end
 
-    def shorten_object(_json_object)
-      raise NotImplementedError
-    end
+    # def shorten_object(_json_object)
+    #   raise NotImplementedError
+    # end
 
     private
+
+    def_delegators :@link_renderer, :render_success, :raise_error
+    def_delegators :FirebaseDynamicLink, :config
+
+    attr_reader :link_renderer, :connection
 
     def build_link(link, options)
       dynamic_link_domain = options.delete(:dynamic_link_domain)
@@ -44,46 +55,8 @@ module FirebaseDynamicLink
       "#{dynamic_link_domain}?link=#{link}"
     end
 
-    def build_connection_options(c, options)
-      c.options.timeout = options.delete(:timeout) if options.key?(:timeout)
-      c.options.open_timeout = options.delete(:open_timeout) if options.key?(:open_timeout)
-      c
-    end
-
-    def connection
-      @connection ||= Faraday::Connection.new(url: end_point,
-                                              headers: { "Content-Type" => "application/json" })
-    end
-
-    def config
-      ::FirebaseDynamicLink.config
-    end
-
     def end_point
       "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=#{config.api_key}"
-    end
-
-    def raise_error(response)
-      message = response.reason_phrase if response.respond_to?(:reason_phrase)
-      if message.nil?
-        message = begin
-                    body = JSON.parse(response.body)
-                    body["error"]["message"]
-                  rescue StandardError
-                    response.body
-                  end
-      end
-      raise FirebaseDynamicLink::ConnectionError, message
-    end
-
-    def render_success(response)
-      body = JSON.parse(response.body)
-      has_error = body.key?("error")
-      {
-        link: has_error ? nil : body["shortLink"],
-        preview_link: has_error ? nil : body["previewLink"],
-        warning: has_error ? nil : body["warning"]
-      }
     end
   end
 end

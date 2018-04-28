@@ -13,9 +13,7 @@ based on reference https://firebase.google.com/docs/reference/dynamic-links/link
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'firebase_dynamic_link'
-```
+    gem 'firebase_dynamic_link'
 
 And then execute:
 
@@ -29,70 +27,67 @@ Or install it yourself as:
 
 ### Configure the HTTP client
 
-```ruby
-FirebaseDynamicLink.configure do |config|
-  # the adapter should be supported by Faraday
-  # more info look at https://github.com/lostisland/faraday/tree/master/test/adapters
-  # Faraday.default_adapter is the default adapter
-  config.adapter = :httpclient
+    FirebaseDynamicLink.configure do |config|
+      # the adapter should be supported by Faraday
+      # more info look at https://github.com/lostisland/faraday/tree/master/test/adapters
+      # Faraday.default_adapter is the default adapter
+      config.adapter = :httpclient
 
-  # required
-  config.api_key = 'API_KEY'
+      # required
+      config.api_key = 'API_KEY'
 
-  # default 'UNGUESSABLE'
-  config.suffix_option = 'SHORT' or 'UNGUESSABLE'
+      # default 'UNGUESSABLE'
+      config.suffix_option = 'SHORT' or 'UNGUESSABLE'
 
-  # required
-  config.dynamic_link_domain = 'http://xyz.app.goo.gl'
+      # required
+      config.dynamic_link_domain = 'http://xyz.app.goo.gl'
 
-  # default 3 seconds
-  config.timeout = 3 
+      # default 3 seconds
+      config.timeout = 3 
 
-  # default 3 seconds
-  config.open_timeout = 3
-end
+      # default 3 seconds
+      config.open_timeout = 3
+    end
 
-client = FirebaseDynamicLink::Client.new
-options = {
-  # optional, to override default suffix default config 
-  suffix_option: '', 
+    client = FirebaseDynamicLink::Client.new
+    options = {
+      # optional, to override default suffix default config 
+      suffix_option: '', 
 
-  # optional, to override default dynamic_link_domain default config
-  dynamic_link_domain: '', 
+      # optional, to override default dynamic_link_domain default config
+      dynamic_link_domain: '', 
 
-  # optional, timeout of each request of this instance
-  timeout: 10, 
+      # optional, timeout of each request of this instance
+      timeout: 10, 
 
-  # optional, open timeout of each request of this instance
-  open_timeout: 10
-}
+      # optional, open timeout of each request of this instance
+      open_timeout: 10
+    }
 
-# options argument is optional
-result = client.shorten_link(link, options)
-
-```
+    # options argument is optional
+    result = client.shorten_link(link, options)
 
 if request successful, then the result should be like following hash object
 
-```ruby
-{ 
-  :link=>"https://--.app.goo.gl/ukph", 
-  :preview_link=>"https://--.app.goo.gl/ukph?d=1", 
-  :warning=>[
-       { 
-         "warningCode"=>"UNRECOGNIZED_PARAM",
-         "warningMessage"=>"..."}, 
-       {
-         "warningCode"=>"..."
-       }, 
-       {
-         "warningCode"=>"..."
-       }
-    ]
-}
-```
+or if the request reached daily quota, client will throw `FirebaseDynamicLink::QuotaExceeded` error
 
-otherwise it raises `FirebaseDynamicLink::ConnectionError`, with message = http error message
+    { 
+      :link=>"https://--.app.goo.gl/ukph", 
+      :preview_link=>"https://--.app.goo.gl/ukph?d=1", 
+      :warning=>[
+           { 
+             "warningCode"=>"UNRECOGNIZED_PARAM",
+             "warningMessage"=>"..."}, 
+           {
+             "warningCode"=>"..."
+           }, 
+           {
+             "warningCode"=>"..."
+           }
+        ]
+    }
+
+otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
 
 # NOTE
 
