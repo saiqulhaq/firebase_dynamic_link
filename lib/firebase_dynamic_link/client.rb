@@ -38,9 +38,91 @@ module FirebaseDynamicLink
       raise FirebaseDynamicLink::ConnectionError, e.message
     end
 
-    # def shorten_object(_json_object)
-    #   raise NotImplementedError
-    # end
+    # @param params [Hash]
+    #   * link [String]
+    #   * android_info [Hash]
+    #     * android_package_name [String]
+    #     * android_fallback_link [String]
+    #     * android_min_package_version_code [String]
+    #     * android_link [String]
+    #   * ios_info [Hash]
+    #     * ios_bundle_id [String]
+    #     * ios_fallback_link [String]
+    #     * ios_custom_scheme [String]
+    #     * ios_ipad_fallback_link [String]
+    #     * ios_ipad_bundle_id [String]
+    #     * ios_app_store_id [String]
+    #   * navigation_info [Hash]
+    #     * enable_forced_redirect [Boolean]
+    #   * analytics_info [Hash]
+    #     * google_play_analytics [Hash]
+    #       * utm_source [String]
+    #       * utm_medium [String]
+    #       * utm_campaign [String]
+    #       * utm_term [String]
+    #       * utm_content [String]
+    #       * gclid [String]
+    #     * itunes_connect_analytics [Hash]
+    #       * at [String]
+    #       * ct [String]
+    #       * mt [String]
+    #       * pt [String]
+    #   * social_meta_tag_info [Hash]
+    #     * social_title [String]
+    #     * social_description [String]
+    #     * social_image_link [String]
+    # @example
+    #   options = {
+    #     suffix_option: "SHORT",
+    #     dynamic_link_domain: 'domain' # optional
+    #   }
+    #
+    #   parameters = {
+    #     link: link,
+    #     android_info: {
+    #       android_package_name: string,
+    #       android_fallback_link: string,
+    #       android_min_package_version_code: string,
+    #       android_link: string
+    #     },
+    #     ios_info: {
+    #       ios_bundle_id: string,
+    #       ios_fallback_link: string,
+    #       ios_custom_scheme: string,
+    #       ios_ipad_fallback_link: string,
+    #       ios_ipad_bundle_id: string,
+    #       ios_app_store_id: string
+    #     },
+    #     navigation_info: {
+    #       enable_forced_redirect: boolean,
+    #     },
+    #     analytics_info: {
+    #       google_play_analytics: {
+    #         utm_source: string,
+    #         utm_medium: string,
+    #         utm_campaign: string,
+    #         utm_term: string,
+    #         utm_content: string,
+    #         gclid: string
+    #       },
+    #       itunes_connect_analytics: {
+    #         at: string,
+    #         ct: string,
+    #         mt: string,
+    #         pt: string
+    #       }
+    #     },
+    #     social_meta_tag_info: {
+    #       social_title: string,
+    #       social_description: string,
+    #       social_image_link: string
+    #     }
+    #   }
+    #   result = instance.shorten_parameters(parameters, options)
+    # @return [Hash]
+    def shorten_parameters(params)
+      raise NotImplementedError
+    end
 
     private
 
