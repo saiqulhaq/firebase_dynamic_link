@@ -6,7 +6,7 @@ RSpec.describe FirebaseDynamicLink do
   before(:all) { FirebaseDynamicLink.reset_config }
 
   it "has a version number" do
-    expect(FirebaseDynamicLink::VERSION).to eq("1.0.0")
+    expect(FirebaseDynamicLink::VERSION).to eq("1.0.1")
   end
 
   describe ".config" do
