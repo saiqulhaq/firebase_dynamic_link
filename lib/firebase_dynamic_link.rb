@@ -9,15 +9,22 @@ require "firebase_dynamic_link/version"
 module FirebaseDynamicLink
   extend Dry::Configurable
 
+  # called when invalid configuration given
   class InvalidConfig < StandardError; end
+
+  # called when HTTP request failed
   class ConnectionError < StandardError; end
+
+  # called when Firebase says that no more quota
   class QuotaExceeded < StandardError; end
 
   # @!group Configuration
   # @!method adapter
   #   @!scope class
+  #   Selected Faraday HTTP adapter
   # @!method adapter=(adapter_key)
   #   @!scope class
+  #   Set Faraday HTTP adapter
   #   @param adapter_key [Symbol]
   #   @example
   #     FirebaseDynamicLink.adapter = :patron
@@ -29,8 +36,10 @@ module FirebaseDynamicLink
 
   # @!method api_key
   #   @!scope class
+  #   Given api key
   # @!method api_key=(key)
   #   @!scope class
+  #   Set api key
   #   @param key [String]
   # @since 0.1.0
   setting :api_key

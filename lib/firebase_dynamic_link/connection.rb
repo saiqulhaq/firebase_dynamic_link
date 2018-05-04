@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module FirebaseDynamicLink
+  # Responsible to do HTTP request
   class Connection
     extend Forwardable
 
@@ -16,18 +17,22 @@ module FirebaseDynamicLink
       client.options.open_timeout = FirebaseDynamicLink.config.open_timeout
     end
 
+    # @see Faraday.timeout=
     def timeout=(time)
       client.options.timeout = time
     end
 
+    # @see Faraday.timeout
     def timeout
       client.options.timeout
     end
 
+    # @see Faraday.open_timeout=
     def open_timeout=(time)
       client.options.open_timeout = time
     end
 
+    # @see Faraday.open_timeout
     def open_timeout
       client.options.open_timeout
     end

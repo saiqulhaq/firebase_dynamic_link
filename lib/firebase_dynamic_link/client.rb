@@ -4,6 +4,7 @@ require "firebase_dynamic_link/connection"
 require "firebase_dynamic_link/link_renderer"
 
 module FirebaseDynamicLink
+  # Main class that responsible to shorten link or parameters
   class Client
     extend Forwardable
 

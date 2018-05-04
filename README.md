@@ -27,6 +27,7 @@ Or install it yourself as:
 
 ### Configure the HTTP client
 
+```ruby
     FirebaseDynamicLink.configure do |config|
       # the adapter should be supported by Faraday
       # more info look at https://github.com/lostisland/faraday/tree/master/test/adapters
@@ -39,8 +40,8 @@ Or install it yourself as:
       # default 'UNGUESSABLE'
       config.suffix_option = 'SHORT' or 'UNGUESSABLE'
 
-      # required
-      config.dynamic_link_domain = 'http://xyz.app.goo.gl'
+      # required, Don't put http://
+      config.dynamic_link_domain = 'xyz.app.goo.gl'
 
       # default 3 seconds
       config.timeout = 3 
@@ -48,8 +49,13 @@ Or install it yourself as:
       # default 3 seconds
       config.open_timeout = 3
     end
+```
 
+### Shorten a link
+
+```ruby
     client = FirebaseDynamicLink::Client.new
+    link = "http://domain.com/path/path"
     options = {
       # optional, to override default suffix default config 
       suffix_option: '', 
@@ -66,11 +72,46 @@ Or install it yourself as:
 
     # options argument is optional
     result = client.shorten_link(link, options)
+```
+
+### Shorten parameters
+
+```ruby
+    client = FirebaseDynamicLink::Client.new
+    options = {
+      # optional, to override default suffix default config 
+      suffix_option: '', 
+
+      # optional, to override default dynamic_link_domain default config
+      dynamic_link_domain: '', 
+
+      # optional, timeout of each request of this instance
+      timeout: 10, 
+
+      # optional, open timeout of each request of this instance
+      open_timeout: 10
+    }
+
+    parameters = {
+      link: link,
+      android_info: {
+        android_package_name: name,
+      }
+      ios_info: {},
+      navigation_info: {},
+      analytics_info: {},
+      social_meta_tag_info: {}
+    }
+
+    # options argument is optional
+    result = client.shorten_parameters(parameters, options)
+```
 
 if request successful, then the result should be like following hash object
 
 or if the request reached daily quota, client will throw `FirebaseDynamicLink::QuotaExceeded` error
 
+```ruby
     { 
       :link=>"https://--.app.goo.gl/ukph", 
       :preview_link=>"https://--.app.goo.gl/ukph?d=1", 
@@ -86,13 +127,9 @@ or if the request reached daily quota, client will throw `FirebaseDynamicLink::Q
            }
         ]
     }
+```
 
 otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
-
-# NOTE
-
-this gem only implemented to shorten long dynamic link til now, next version is supposed to 
-be able shorten a JSON object
 
 ## Development
 
