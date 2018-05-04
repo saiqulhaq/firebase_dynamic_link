@@ -10,7 +10,7 @@ RSpec.describe FirebaseDynamicLink::Client do
     end
   end
 
-  xdescribe "#shorten_link" do
+  describe "#shorten_link" do
     it "shorten link correctly" do
       link = "http://saiqulhaq.com"
       VCR.use_cassette("shorten_link-SHORT") do
@@ -53,60 +53,64 @@ RSpec.describe FirebaseDynamicLink::Client do
     end
   end
 
-  fdescribe "#shorten_parameters" do
+  describe "#shorten_parameters" do
     it "shorten link correctly" do
-      link = "http://saiqulhaq.com"
+      link = "http://saiqulhaq.com/asldkj"
       string = "foo"
+      parameters = {
+        link: link,
+        android_info: {
+          android_package_name: "com.foo.name"
+        },
+        ios_info: {
+          ios_bundle_id: string,
+          ios_fallback_link: string,
+          ios_custom_scheme: string,
+          ios_ipad_fallback_link: string,
+          ios_ipad_bundle_id: string,
+          ios_app_store_id: string
+        },
+        navigation_info: {
+          enable_forced_redirect: [true, false].sample
+        },
+        analytics_info: {
+          google_play_analytics: {
+            utm_source: "custom"
+          },
+          itunes_connect_analytics: {
+            at: string
+          }
+        },
+        social_meta_tag_info: {
+          social_title: string,
+          social_description: string,
+          social_image_link: string
+        }
+      }
       VCR.use_cassette("shorten_parameters-SHORT") do
         options = {
-          suffix_option: "SHORT" #,
+          suffix_option: "SHORT",
           # dynamic_link_domain: 'foo' # optional
         }
 
-        parameters = {
-          link: link,
-          android_info: {
-            android_package_name: string,
-            android_fallback_link: string,
-            android_min_package_version_code: string,
-            android_link: string
-          },
-          ios_info: {
-            ios_bundle_id: string,
-            ios_fallback_link: string,
-            ios_custom_scheme: string,
-            ios_ipad_fallback_link: string,
-            ios_ipad_bundle_id: string,
-            ios_app_store_id: string
-          },
-          navigation_info: {
-            enable_forced_redirect: boolean,
-          },
-          analytics_info: {
-            google_play_analytics: {
-              utm_source: string,
-              utm_medium: string,
-              utm_campaign: string,
-              utm_term: string,
-              utm_content: string,
-              gclid: string
-            },
-            itunes_connect_analytics: {
-              at: string,
-              ct: string,
-              mt: string,
-              pt: string
-            }
-          },
-          social_meta_tag_info: {
-            social_title: string,
-            social_description: string,
-            social_image_link: string
-          }
+        expect do
+          result = subject.shorten_parameters(parameters, options)
+          expect(result[:link]).to_not eq("")
+          expect(result[:link]).to_not eq(link)
+        end.to_not raise_error
+      end
+
+      VCR.use_cassette("shorten_parameters-UNGUESSABLE") do
+        options = {
+          suffix_option: "UNGUESSABLE",
+          # dynamic_link_domain: 'foo' # optional
         }
-        result = subject.shorten_parameters(parameters, options)
-        expect(result[:link]).to_not eq("")
-        expect(result[:link]).to_not eq(link)
+
+        expect do
+          result = subject.shorten_parameters(parameters, options)
+          expect(result[:link]).to_not eq("")
+          expect(result[:link]).to_not eq(link)
+        end.to_not raise_error
       end
     end
   end

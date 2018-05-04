@@ -5,7 +5,6 @@ require "firebase_dynamic_link/link_renderer"
 
 module FirebaseDynamicLink
   class Client
-    attr_accessor :dynamic_link_domain
     extend Forwardable
 
     def initialize
@@ -119,9 +118,26 @@ module FirebaseDynamicLink
     #     }
     #   }
     #   result = instance.shorten_parameters(parameters, options)
-    # @return [Hash]
-    def shorten_parameters(params)
-      raise NotImplementedError
+    # @return [Hash{Symbol=>String}]
+    # @see FirebaseDynamicLink::LinkRenderer#render LinkRenderer#render for returned Hash
+    def shorten_parameters(params, options = {})
+      connection.timeout = options[:timeout] if options.key?(:timeout)
+      connection.open_timeout = options[:open_timeout] if options.key?(:open_timeout)
+
+      suffix_option = options[:suffix_option] if options.key?(:suffix_option)
+
+      dynamic_link_domain = options.delete(:dynamic_link_domain)
+      dynamic_link_domain ||= config.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig, "Dynamic link domain is empty")
+
+      response = connection.post(nil, {
+        dynamicLinkInfo: params.merge(dynamicLinkDomain: dynamic_link_domain),
+        suffix: {
+          option: suffix_option || config.suffix_option
+        }
+      }.to_json)
+      link_renderer.render(response)
+    rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
+      raise FirebaseDynamicLink::ConnectionError, e.message
     end
 
     private

@@ -36,16 +36,14 @@ module FirebaseDynamicLink
     end
 
     def raise_error(response)
-      message = response.reason_phrase if response.respond_to?(:reason_phrase)
-      if message.nil?
-        message = begin
-                    body = JSON.parse(response.body)
-                    body["error"]["message"]
-                  rescue JSON::ParserError, NoMethodError
-                    response.body
-                  end
-      end
-      raise FirebaseDynamicLink::ConnectionError, message
+      reason = response.reason_phrase.to_s if response.respond_to?(:reason_phrase)
+      message = begin
+                  body = JSON.parse(response.body)
+                  body["error"]["message"]
+                rescue JSON::ParserError, NoMethodError
+                  response.body
+                end
+      raise FirebaseDynamicLink::ConnectionError, [reason, message].compact.join(": ")
     end
 
     def raise_limit_has_reached
