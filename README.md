@@ -40,8 +40,8 @@ Or install it yourself as:
       # default 'UNGUESSABLE'
       config.suffix_option = 'SHORT' or 'UNGUESSABLE'
 
-      # required, Don't put http://
-      config.dynamic_link_domain = 'xyz.app.goo.gl'
+      # required
+      config.dynamic_link_domain = 'https://xyz.app.goo.gl'
 
       # default 3 seconds
       config.timeout = 3 

@@ -2,6 +2,20 @@
 
 RSpec.describe FirebaseDynamicLink::Client do
   before(:all) { FirebaseDynamicLink.reset_config }
+  let(:connection_failed_class) do
+    Class.new do
+      def post(*)
+        raise Faraday::ConnectionFailed, "test"
+      end
+    end
+  end
+  let(:timout_error_class) do
+    Class.new do
+      def post(*)
+        raise Faraday::TimeoutError, "test"
+      end
+    end
+  end
 
   before do
     FirebaseDynamicLink.configure do |config|
@@ -29,24 +43,14 @@ RSpec.describe FirebaseDynamicLink::Client do
     end
 
     it "raise FirebaseDynamicLink::ConnectionError if Faraday::ConnectionFailed raised" do
-      connection = Class.new do
-        def post(*)
-          raise Faraday::ConnectionFailed, "test"
-        end
-      end
-      allow_any_instance_of(described_class).to receive(:connection).and_return(connection.new)
+      allow_any_instance_of(described_class).to receive(:connection).and_return(connection_failed_class.new)
       expect do
         subject.shorten_link("http://saiqulhaq.com")
       end.to raise_error(FirebaseDynamicLink::ConnectionError)
     end
 
     it "raise FirebaseDynamicLink::ConnectionError if Faraday::TimeoutError raised" do
-      connection = Class.new do
-        def post(*)
-          raise Faraday::TimeoutError, "test"
-        end
-      end
-      allow_any_instance_of(described_class).to receive(:connection).and_return(connection.new)
+      allow_any_instance_of(described_class).to receive(:connection).and_return(timout_error_class.new)
       expect do
         subject.shorten_link("http://saiqulhaq.com")
       end.to raise_error(FirebaseDynamicLink::ConnectionError)
@@ -54,10 +58,10 @@ RSpec.describe FirebaseDynamicLink::Client do
   end
 
   describe "#shorten_parameters" do
-    it "shorten link correctly" do
-      link = "http://saiqulhaq.com/asldkj"
+    let(:link) { "http://saiqulhaq.com/asldkj" }
+    let(:parameters) do
       string = "foo"
-      parameters = {
+      {
         link: link,
         android_info: {
           android_package_name: "com.foo.name"
@@ -87,6 +91,8 @@ RSpec.describe FirebaseDynamicLink::Client do
           social_image_link: string
         }
       }
+    end
+    it "shorten link correctly" do
       VCR.use_cassette("shorten_parameters-SHORT") do
         options = {
           suffix_option: "SHORT",
@@ -112,6 +118,20 @@ RSpec.describe FirebaseDynamicLink::Client do
           expect(result[:link]).to_not eq(link)
         end.to_not raise_error
       end
+    end
+
+    it "raise FirebaseDynamicLink::ConnectionError if Faraday::ConnectionFailed raised" do
+      allow_any_instance_of(described_class).to receive(:connection).and_return(connection_failed_class.new)
+      expect do
+        subject.shorten_parameters(parameters)
+      end.to raise_error(FirebaseDynamicLink::ConnectionError)
+    end
+
+    it "raise FirebaseDynamicLink::ConnectionError if Faraday::TimeoutError raised" do
+      allow_any_instance_of(described_class).to receive(:connection).and_return(timout_error_class.new)
+      expect do
+        subject.shorten_link(parameters)
+      end.to raise_error(FirebaseDynamicLink::ConnectionError)
     end
   end
 end

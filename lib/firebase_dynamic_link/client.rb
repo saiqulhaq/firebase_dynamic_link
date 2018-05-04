@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "uri"
 require "firebase_dynamic_link/connection"
 require "firebase_dynamic_link/link_renderer"
 
@@ -129,6 +130,8 @@ module FirebaseDynamicLink
 
       dynamic_link_domain = options.delete(:dynamic_link_domain)
       dynamic_link_domain ||= config.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig, "Dynamic link domain is empty")
+
+      dynamic_link_domain = URI.parse(dynamic_link_domain).host
 
       response = connection.post(nil, {
         dynamicLinkInfo: params.merge(dynamicLinkDomain: dynamic_link_domain),
