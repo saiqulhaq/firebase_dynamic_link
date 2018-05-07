@@ -7,7 +7,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # Specify your gem's dependencies in firebase_dynamic_link.gemspec
 gemspec
 
-# group :development do
-#   gem 'guard'
-#   gem 'guard-rspec'
-# end
+group :development do
+  gem 'guard'
+  gem 'guard-rspec'
+end
