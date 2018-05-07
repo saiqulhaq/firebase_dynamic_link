@@ -3,6 +3,7 @@
 require "uri"
 require "firebase_dynamic_link/connection"
 require "firebase_dynamic_link/link_renderer"
+require "case_transform2"
 
 module FirebaseDynamicLink
   # Main class that responsible to shorten link or parameters
@@ -28,12 +29,11 @@ module FirebaseDynamicLink
 
       suffix_option = options[:suffix_option] if options.key?(:suffix_option)
 
-      response = connection.post(nil, {
-        longDynamicLink: build_link(link, options),
-        suffix: {
-          option: suffix_option || config.suffix_option
-        }
-      }.to_json)
+      params = CaseTransform.camel_lower(long_dynamic_link: build_link(link, options),
+                                         suffix: {
+                                           option: suffix_option || config.suffix_option
+                                         })
+      response = connection.post(nil, params.to_json)
       link_renderer.render(response)
     rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
       raise FirebaseDynamicLink::ConnectionError, e.message
@@ -133,12 +133,11 @@ module FirebaseDynamicLink
 
       dynamic_link_domain = URI.parse(dynamic_link_domain).host
 
-      response = connection.post(nil, {
-        dynamicLinkInfo: params.merge(dynamicLinkDomain: dynamic_link_domain),
-        suffix: {
-          option: suffix_option || config.suffix_option
-        }
-      }.to_json)
+      params = CaseTransform.camel_lower(dynamic_link_info: params.merge(dynamicLinkDomain: dynamic_link_domain),
+                                         suffix: {
+                                           option: suffix_option || config.suffix_option
+                                         })
+      response = connection.post(nil, params.to_json)
       link_renderer.render(response)
     rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
       raise FirebaseDynamicLink::ConnectionError, e.message
