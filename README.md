@@ -1,3 +1,19 @@
+
+<!-- vim-markdown-toc GFM -->
+
++ [FirebaseDynamicLink](#firebasedynamiclink)
+    * [Installation](#installation)
+    * [Usage](#usage)
+        - [Configure the HTTP client](#configure-the-http-client)
+        - [Shorten a link](#shorten-a-link)
+        - [Shorten parameters](#shorten-parameters)
+    * [Development](#development)
+    * [Contributing](#contributing)
+    * [License](#license)
+    * [Code of Conduct](#code-of-conduct)
+
+<!-- vim-markdown-toc -->
+
 # FirebaseDynamicLink
 
 [![Build Status](https://travis-ci.org/saiqulhaq/firebase_dynamic_link.svg?branch=master)](https://travis-ci.org/saiqulhaq/firebase_dynamic_link)
