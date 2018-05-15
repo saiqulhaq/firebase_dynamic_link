@@ -25,6 +25,8 @@ Opiniated Ruby Firebase Dynamic Links Short Links client
 
 based on reference https://firebase.google.com/docs/reference/dynamic-links/link-shortener
 
+This library is considered complete and in maintenance mode. New features will be added if Firebase Dynamic Links released new updates
+
 ## Installation
 
 Add this line to your application's Gemfile:
