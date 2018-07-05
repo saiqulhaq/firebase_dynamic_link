@@ -29,7 +29,7 @@ module FirebaseDynamicLink
 
       suffix_option = options[:suffix_option] if options.key?(:suffix_option)
 
-      params = CaseTransform.camel_lower(long_dynamic_link: build_link(link, options),
+      params = CaseTransform2.camel_lower(long_dynamic_link: build_link(link, options),
                                          suffix: {
                                            option: suffix_option || config.suffix_option
                                          })
@@ -133,7 +133,7 @@ module FirebaseDynamicLink
 
       dynamic_link_domain = URI.parse(dynamic_link_domain).host
 
-      params = CaseTransform.camel_lower(dynamic_link_info: params.merge(dynamicLinkDomain: dynamic_link_domain),
+      params = CaseTransform2.camel_lower(dynamic_link_info: params.merge(dynamicLinkDomain: dynamic_link_domain),
                                          suffix: {
                                            option: suffix_option || config.suffix_option
                                          })

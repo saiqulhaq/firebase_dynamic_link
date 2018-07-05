@@ -7,6 +7,7 @@
         - [Configure the HTTP client](#configure-the-http-client)
         - [Shorten a link](#shorten-a-link)
         - [Shorten parameters](#shorten-parameters)
+    * [CHANGES](#changes)
     * [Development](#development)
     * [Contributing](#contributing)
     * [License](#license)
@@ -148,6 +149,13 @@ or if the request reached daily quota, client will throw `FirebaseDynamicLink::Q
 ```
 
 otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
+
+## CHANGES
+
+VERSION:
+
+* 1.0.3 
+  Update Dry-configurable dependencies to version 0.6.0
 
 ## Development
 
