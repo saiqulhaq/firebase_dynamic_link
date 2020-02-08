@@ -131,8 +131,6 @@ module FirebaseDynamicLink
       dynamic_link_domain = options.delete(:dynamic_link_domain)
       dynamic_link_domain ||= config.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig, "Dynamic link domain is empty")
 
-      dynamic_link_domain = dynamic_link_domain
-
       params = CaseTransform2.camel_lower(dynamic_link_info: params.merge(domainUriPrefix: dynamic_link_domain),
                                          suffix: {
                                            option: suffix_option || config.suffix_option
