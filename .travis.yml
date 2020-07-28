@@ -21,3 +21,5 @@ script:
   - COVERAGE=1 bundle exec rspec
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+before_install:
+  - gem install bundler
