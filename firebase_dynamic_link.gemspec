@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "appraisal", "~> 2.2.0"
   spec.add_development_dependency "bootsnap", "~> 1.3.0"
-  spec.add_development_dependency "bundler", "~> 1.16"
+  spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "dotenv", "~> 2.2", ">= 2.2.2"
   spec.add_development_dependency "pry", "~> 0.11.3"
   spec.add_development_dependency "rake", "~> 10.0"
