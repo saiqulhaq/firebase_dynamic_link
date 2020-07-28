@@ -14,7 +14,7 @@ RSpec.describe FirebaseDynamicLink do
     {
       adapter: {
         default: Faraday.default_adapter,
-        valid_value: :httpclient
+        valid_value: :net_http
       },
       api_key: {
         default: nil,
@@ -39,12 +39,20 @@ RSpec.describe FirebaseDynamicLink do
     }.each do |method, meta|
       describe ".#{method}" do
         it "default value is #{meta[:default].nil? ? 'nil' : meta[:default]}" do
-          expect(subject.send(method.to_sym)).to eq(meta[:default])
+          if subject.respond_to? :values
+            expect(subject.values[method]).to eq(meta[:default])
+          else
+            expect(subject.send(method)).to eq(meta[:default])
+          end
         end
 
         it "is writable" do
           subject.send("#{method}=".to_sym, meta[:valid_value])
-          expect(subject.send(method.to_sym)).to eq(meta[:valid_value])
+          if subject.respond_to? :values
+            expect(subject.values[method]).to eq(meta[:valid_value])
+          else
+            expect(subject.send(method.to_sym)).to eq(meta[:valid_value])
+          end
         end
       end
     end

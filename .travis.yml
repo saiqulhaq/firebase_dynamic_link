@@ -4,10 +4,12 @@ rvm:
  - 2.3
  - 2.4
  - 2.5
+ - 2.6
 gemfile:
- - gemfiles/version_2017a.gemfile
- - gemfiles/version_2017b.gemfile
- - gemfiles/version_2018.gemfile
+  - gemfiles/version_2018.gemfile
+  - gemfiles/version_2017b.gemfile
+  - gemfiles/version_2017a.gemfile
+  - gemfiles/version_2020.gemfile
 env:
   global:
     - CC_TEST_REPORTER_ID=22b531be7956bd878ec8ce211da98c483c9724eebc8eb72f99d064f00aa6e985

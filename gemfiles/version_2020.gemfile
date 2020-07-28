@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "dry-configurable", "0.5.0"
-gem "faraday", "0.9.2"
+gem "dry-configurable", "0.11.6"
+gem "faraday", "1.0.1"
 
 gemspec path: "../"
