@@ -2,6 +2,7 @@
 <!-- vim-markdown-toc GFM -->
 
 + [FirebaseDynamicLink](#firebasedynamiclink)
+        - [Information](#information)
     * [Installation](#installation)
     * [Usage](#usage)
         - [Configure the HTTP client](#configure-the-http-client)
@@ -27,6 +28,10 @@ Opiniated Ruby Firebase Dynamic Links Short Links client
 based on reference https://firebase.google.com/docs/reference/dynamic-links/link-shortener
 
 This library is considered complete and in maintenance mode. New features will be added if Firebase Dynamic Links released new updates
+
+### Information
+Travis CI build is failing because dry-configurable v0.11 is not compatible with 
+Ruby 2.3. However Bundler will install lower version if your ruby is 2.3. So there is nothing to worry about
 
 ## Installation
 

@@ -27,14 +27,14 @@ RSpec.describe FirebaseDynamicLink::Client do
   describe "#shorten_link" do
     it "shorten link correctly" do
       link = "http://saiqulhaq.com"
-      VCR.use_cassette("shorten_link-SHORT") do
+      VCR.use_cassette("shorten_link-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
         options = { suffix_option: "SHORT" }
         result = subject.shorten_link(link, options)
         expect(result[:link]).to_not eq("")
         expect(result[:link]).to_not eq(link)
       end
 
-      VCR.use_cassette("shorten_link-UNGUESSABLE") do
+      VCR.use_cassette("shorten_link-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
         options = { suffix_option: "UNGUESSABLE", timout: 5 }
         result = subject.shorten_link(link, options)
         expect(result[:link]).to_not eq("")
@@ -93,7 +93,7 @@ RSpec.describe FirebaseDynamicLink::Client do
       }
     end
     it "shorten link correctly" do
-      VCR.use_cassette("shorten_parameters-SHORT") do
+      VCR.use_cassette("shorten_parameters-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
         options = {
           suffix_option: "SHORT",
           # dynamic_link_domain: 'foo' # optional
@@ -106,7 +106,7 @@ RSpec.describe FirebaseDynamicLink::Client do
         end.to_not raise_error
       end
 
-      VCR.use_cassette("shorten_parameters-UNGUESSABLE") do
+      VCR.use_cassette("shorten_parameters-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
         options = {
           suffix_option: "UNGUESSABLE",
           # dynamic_link_domain: 'foo' # optional

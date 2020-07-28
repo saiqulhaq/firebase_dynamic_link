@@ -1,13 +1,14 @@
 language: ruby
 rvm:
- - 2.2
  - 2.3
  - 2.4
+ - 2.5
+ - 2.6
 gemfile:
- - gemfiles/version_2016.gemfile
- - gemfiles/version_2017a.gemfile
- - gemfiles/version_2017b.gemfile
- - gemfiles/version_2018.gemfile
+  - gemfiles/version_2018.gemfile
+  - gemfiles/version_2017b.gemfile
+  - gemfiles/version_2017a.gemfile
+  - gemfiles/version_2020.gemfile
 env:
   global:
     - CC_TEST_REPORTER_ID=22b531be7956bd878ec8ce211da98c483c9724eebc8eb72f99d064f00aa6e985
@@ -19,3 +20,5 @@ script:
   - COVERAGE=1 bundle exec rspec
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+before_install:
+  - gem install bundler

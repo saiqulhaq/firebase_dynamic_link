@@ -28,8 +28,15 @@ end
 
 require "dry/configurable/test_interface"
 
-module FirebaseDynamicLink
-  extend Dry::Configurable::TestInterface
+begin
+  module FirebaseDynamicLink
+    enable_test_interface
+  end
+
+rescue LoadError
+  module FirebaseDynamicLink
+    extend Dry::Configurable::TestInterface
+  end
 end
 
 RSpec.configure do |config|
