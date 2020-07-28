@@ -14,8 +14,3 @@ appraise "version-2017a" do
   gem "dry-configurable", "0.6.0"
   gem "faraday", "0.10.1"
 end
-
-appraise "version-2016" do
-  gem "dry-configurable", "0.5.0"
-  gem "faraday", "0.9.2"
-end
