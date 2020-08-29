@@ -23,9 +23,9 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0e2629515335c72ef80d/test_coverage)](https://codeclimate.com/github/saiqulhaq/firebase_dynamic_link/test_coverage)
 [![Gem Version](https://badge.fury.io/rb/firebase_dynamic_link.svg)](https://badge.fury.io/rb/firebase_dynamic_link)
 
-Opiniated Ruby Firebase Dynamic Links Short Links client 
+Opinionated Ruby Firebase Dynamic Links Short Links client 
 
-based on reference https://firebase.google.com/docs/reference/dynamic-links/link-shortener
+Based on reference https://firebase.google.com/docs/reference/dynamic-links/link-shortener
 
 This library is considered complete and in maintenance mode. New features will be added if Firebase Dynamic Links released new updates
 
@@ -76,6 +76,9 @@ Or install it yourself as:
 ```
 
 ### Shorten a link
+This method shortens a link with up to the first parameter in tact. Use this method if you do not have more than one
+parameter in the URL. Shortening an URL with more than one parameters will result in truncation of parameters after the 
+first one.
 
 ```ruby
     client = FirebaseDynamicLink::Client.new
@@ -99,9 +102,11 @@ Or install it yourself as:
 ```
 
 ### Shorten parameters
+This method allows shortening of an URL with multiple parameters. 
 
 ```ruby
     client = FirebaseDynamicLink::Client.new
+    link = "http://domain.com/path/path?key1=value1&key2=val2&key3=val3"
     options = {
       # optional, to override default suffix default config 
       suffix_option: '', 
@@ -120,7 +125,7 @@ Or install it yourself as:
       link: link,
       android_info: {
         android_package_name: name,
-      }
+      },
       ios_info: {},
       navigation_info: {},
       analytics_info: {},
@@ -131,9 +136,9 @@ Or install it yourself as:
     result = client.shorten_parameters(parameters, options)
 ```
 
-if request successful, then the result should be like following hash object
+If request successful, then the result should be like following hash object
 
-or if the request reached daily quota, client will throw `FirebaseDynamicLink::QuotaExceeded` error
+Or if the request reached daily quota, client will throw `FirebaseDynamicLink::QuotaExceeded` error
 
 ```ruby
     { 
@@ -142,7 +147,8 @@ or if the request reached daily quota, client will throw `FirebaseDynamicLink::Q
       :warning=>[
            { 
              "warningCode"=>"UNRECOGNIZED_PARAM",
-             "warningMessage"=>"..."}, 
+             "warningMessage"=>"..."
+           }, 
            {
              "warningCode"=>"..."
            }, 
@@ -153,7 +159,7 @@ or if the request reached daily quota, client will throw `FirebaseDynamicLink::Q
     }
 ```
 
-otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
+Otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
 
 ## CHANGES
 
