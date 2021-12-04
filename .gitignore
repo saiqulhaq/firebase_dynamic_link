@@ -14,3 +14,4 @@ spec/fixtures/vcr_cassettes/
 coverage
 doc
 Gemfile.lock
+.env
