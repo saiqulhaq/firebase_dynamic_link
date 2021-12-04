@@ -1,0 +1,32 @@
+name: Test Coverage
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:  
+  coverage:
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+      with:
+        ruby-version: 2.7
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Install cc-test-reporter and prebuild notification
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
+    - name: Run tests
+      env:
+        COVERAGE: 1
+      run: bundle exec rspec
+    - name: CodeClimate Post-build upload
+      env:
+        CC_TEST_REPORTER_ID: 7eaf794e2ffbbd1bbe4eccd967a5428a6318cad2a33b8fd0baf42d6335a334a0
+      run: ./cc-test-reporter -d -t simplecov after-build
