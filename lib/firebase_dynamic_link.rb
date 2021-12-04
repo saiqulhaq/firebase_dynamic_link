@@ -2,12 +2,17 @@
 
 require "dry-configurable"
 require "faraday"
+if Faraday::VERSION.to_f >= 2.0
+  require "faraday/net_http"
+end
 require "firebase_dynamic_link/client"
 require "firebase_dynamic_link/link_renderer"
 require "firebase_dynamic_link/version"
 
 module FirebaseDynamicLink
   extend Dry::Configurable
+
+  USE_FARADAY_2 = Faraday::VERSION.to_i == 2
 
   # called when invalid configuration given
   class InvalidConfig < StandardError; end
@@ -32,7 +37,10 @@ module FirebaseDynamicLink
   #     FirebaseDynamicLink.adapter = :net_http_persistent
   #   @see https://github.com/lostisland/faraday/tree/master/test/adapters
   # @since 0.1.0
-  setting :adapter, Faraday.default_adapter
+  if FirebaseDynamicLink::USE_FARADAY_2 && Faraday.default_adapter == :test
+    Faraday.default_adapter = :net_http # default adapter included in this gem
+  end
+  setting :adapter, Faraday.default_adapter 
 
   # @!method api_key
   #   @!scope class

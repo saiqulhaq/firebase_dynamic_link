@@ -1,20 +1,12 @@
 
-<!-- vim-markdown-toc GFM -->
+Before you begin
+Get your API key. You will need an API key to authenticate your requests to the API. To find your API key:
+Open the Settings page of the Firebase console. If you are prompted to choose a project, select your Firebase project from the menu.
+Take note of the value of the Web API Key field.
+In the Firebase console, open the Dynamic Links section.
+If you have not already accepted the terms of service and set a domain for your Dynamic Links, do so when prompted.
 
-+ [FirebaseDynamicLink](#firebasedynamiclink)
-        - [Information](#information)
-    * [Installation](#installation)
-    * [Usage](#usage)
-        - [Configure the HTTP client](#configure-the-http-client)
-        - [Shorten a link](#shorten-a-link)
-        - [Shorten parameters](#shorten-parameters)
-    * [CHANGES](#changes)
-    * [Development](#development)
-    * [Contributing](#contributing)
-    * [License](#license)
-    * [Code of Conduct](#code-of-conduct)
-
-<!-- vim-markdown-toc -->
+If you already have a Dynamic Links domain, take note of it. You need to provide a Dynamic Links domain when you programmatically create Dynamic Links.
 
 # FirebaseDynamicLink
 
@@ -32,6 +24,8 @@ This library is considered complete and in maintenance mode. New features will b
 ### Information
 Travis CI build is failing because dry-configurable v0.11 is not compatible with 
 Ruby 2.3. However Bundler will install lower version if your ruby is 2.3. So there is nothing to worry about
+
+This gem development uses Ruby 2.7
 
 ## Installation
 
@@ -169,6 +163,9 @@ VERSION:
   Update Dry-configurable dependencies to version 0.6.0
 
 ## Development
+
+copy `.env.template` to `.env`
+should support dependency gems, except yanked by the authors
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
