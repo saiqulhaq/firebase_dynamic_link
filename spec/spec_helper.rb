@@ -2,6 +2,7 @@
 
 require "bundler/setup"
 require "bootsnap"
+require "faraday"
 
 enable_coverage = ENV.fetch("COVERAGE", 0).to_s == '1'
 
