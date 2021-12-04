@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.5', '2.6', '2.7', '3.0']
+        ruby-version: ['2.6', '2.7', '3.0']
 
     steps:
     - uses: actions/checkout@v2
@@ -18,7 +18,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Appraisal bundle
-      run: bundle exec appraisal bundle install
     - name: Run tests
-      run: bundle exec appraisal rspec
+      run: bundle exec appraisal bundle install && bundle exec appraisal rspec
