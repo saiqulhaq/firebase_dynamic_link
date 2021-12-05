@@ -6,10 +6,6 @@ require "faraday"
 
 enable_coverage = ENV.fetch("COVERAGE", 0).to_s == '1'
 
-if RUBY_VERSION.to_i == 3 && Faraday::VERSION.to_f < 1.2
-  exit(0)
-end
-
 Bootsnap.setup(
   cache_dir:            "tmp/cache",          # Path to your cache
   development_mode:     true,                 # Current working environment, e.g. RACK_ENV, RAILS_ENV, etc

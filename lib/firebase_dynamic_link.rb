@@ -43,10 +43,8 @@ module FirebaseDynamicLink
   # @since 0.1.0
   if USE_DRY_CONFIGURABLE_0_13
     setting :adapter, default: Faraday.default_adapter
-
   else
     setting :adapter, Faraday.default_adapter
-
   end
 
   # @!method api_key

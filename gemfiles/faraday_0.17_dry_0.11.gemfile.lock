@@ -4,7 +4,7 @@ PATH
     firebase_dynamic_link (1.0.4)
       case_transform2 (>= 1.0, < 2.0)
       dry-configurable (>= 0.6, < 1.0)
-      faraday (>= 0.9, < 3.0)
+      faraday (>= 0.16, < 3.0)
       faraday-net_http (>= 1.0, < 2.0)
 
 GEM
