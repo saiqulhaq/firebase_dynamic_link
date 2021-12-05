@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "case_transform2", ">= 1.0", "< 2.0"
   spec.add_runtime_dependency "faraday-net_http", ">= 1.0", "< 2.0"
 
+  spec.add_development_dependency 'bundle-audit', '~> 0.1.0'
   spec.add_development_dependency "appraisal", "~> 2.4.1"
   spec.add_development_dependency "bootsnap", "~> 1.9.3"
   spec.add_development_dependency "bundler", ">= 2.0"
