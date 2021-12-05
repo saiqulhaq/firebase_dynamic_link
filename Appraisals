@@ -1,21 +1,81 @@
 # frozen_string_literal: true
 
-appraise "version-2018" do
-  gem "dry-configurable", "0.7.0"
-  gem "faraday", "0.14.0"
+appraise 'faraday-0.16-dry-0.9' do
+  gem 'dry-configurable', '0.9.0'
+  gem 'faraday', '0.16.2'
 end
 
-appraise "version-2017b" do
-  gem "dry-configurable", "0.6.0"
-  gem "faraday", "0.11.0"
+appraise 'faraday-0.17-dry-0.9' do
+  gem 'dry-configurable', '0.9.0'
+  gem 'faraday', '0.17.4'
 end
 
-appraise "version-2017a" do
-  gem "dry-configurable", "0.6.0"
-  gem "faraday", "0.10.1"
+appraise 'faraday-1.8.0-dry-0.9' do
+  gem 'dry-configurable', '0.9.0'
+  gem 'faraday', '1.8.0'
 end
 
-appraise "version-2020" do
-  gem "dry-configurable", "0.11.6"
-  gem "faraday", "1.0.1"
+appraise 'faraday-2.0.0-dry-0.9' do
+  gem 'dry-configurable', '0.9.0'
+  gem 'faraday', '2.0.0.alpha.pre.3'
+end
+
+appraise 'faraday-0.16-dry-0.11' do
+  gem 'dry-configurable', '0.11.6'
+  gem 'faraday', '0.16.2'
+end
+
+appraise 'faraday-0.17-dry-0.11' do
+  gem 'dry-configurable', '0.11.6'
+  gem 'faraday', '0.17.4'
+end
+
+appraise 'faraday-1.8.0-dry-0.11' do
+  gem 'dry-configurable', '0.11.6'
+  gem 'faraday', '1.8.0'
+end
+
+appraise 'faraday-2.0.0-dry-0.11' do
+  gem 'dry-configurable', '0.11.6'
+  gem 'faraday', '2.0.0.alpha.pre.3'
+end
+
+appraise 'faraday-0.16-dry-0.12' do
+  gem 'dry-configurable', '0.12.1'
+  gem 'faraday', '0.16.2'
+end
+
+appraise 'faraday-0.17-dry-0.12' do
+  gem 'dry-configurable', '0.12.1'
+  gem 'faraday', '0.17.4'
+end
+
+appraise 'faraday-1.8.0-dry-0.12' do
+  gem 'dry-configurable', '0.12.1'
+  gem 'faraday', '1.8.0'
+end
+
+appraise 'faraday-2.0.0-dry-0.12' do
+  gem 'dry-configurable', '0.12.1'
+  gem 'faraday', '2.0.0.alpha.pre.3'
+end
+
+appraise 'faraday-0.16-dry-0.13' do
+  gem 'dry-configurable', '0.13.0'
+  gem 'faraday', '0.16.2'
+end
+
+appraise 'faraday-0.17-dry-0.13' do
+  gem 'dry-configurable', '0.13.0'
+  gem 'faraday', '0.17.4'
+end
+
+appraise 'faraday-1.8.0-dry-0.13' do
+  gem 'dry-configurable', '0.13.0'
+  gem 'faraday', '1.8.0'
+end
+
+appraise 'faraday-2.0.0-dry-0.13' do
+  gem 'dry-configurable', '0.13.0'
+  gem 'faraday', '2.0.0.alpha.pre.3'
 end

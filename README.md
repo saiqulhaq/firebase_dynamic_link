@@ -1,37 +1,35 @@
-
-<!-- vim-markdown-toc GFM -->
-
-+ [FirebaseDynamicLink](#firebasedynamiclink)
-        - [Information](#information)
-    * [Installation](#installation)
-    * [Usage](#usage)
-        - [Configure the HTTP client](#configure-the-http-client)
-        - [Shorten a link](#shorten-a-link)
-        - [Shorten parameters](#shorten-parameters)
-    * [CHANGES](#changes)
-    * [Development](#development)
-    * [Contributing](#contributing)
-    * [License](#license)
-    * [Code of Conduct](#code-of-conduct)
-
-<!-- vim-markdown-toc -->
-
-# FirebaseDynamicLink
-
-[![Build Status](https://travis-ci.org/saiqulhaq/firebase_dynamic_link.svg?branch=master)](https://travis-ci.org/saiqulhaq/firebase_dynamic_link)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0e2629515335c72ef80d/maintainability)](https://codeclimate.com/github/saiqulhaq/firebase_dynamic_link/maintainability)
+[![Audit](https://github.com/saiqulhaq/firebase_dynamic_link/actions/workflows/audit.yml/badge.svg)](https://github.com/saiqulhaq/firebase_dynamic_link/actions/workflows/audit.yml)
+[![Test](https://github.com/saiqulhaq/firebase_dynamic_link/actions/workflows/test.yml/badge.svg)](https://github.com/saiqulhaq/firebase_dynamic_link/actions/workflows/test.yml)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0e2629515335c72ef80d/test_coverage)](https://codeclimate.com/github/saiqulhaq/firebase_dynamic_link/test_coverage)
-[![Gem Version](https://badge.fury.io/rb/firebase_dynamic_link.svg)](https://badge.fury.io/rb/firebase_dynamic_link)
 
-Opinionated Ruby Firebase Dynamic Links Short Links client 
+Firebase Dynamic Link is a tool to create a deep link of your webpage. It can be a tool to create a short link like Bit.ly too
 
-Based on reference https://firebase.google.com/docs/reference/dynamic-links/link-shortener
+- [Setup](#setup)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Configure the HTTP client](#configure-the-http-client)
+  - [Shorten a link](#shorten-a-link)
+  - [Shorten parameters](#shorten-parameters)
+- [CHANGELOG](#changelog)
+  - [V1.0.5](#v105)
+  - [V1.0.3](#v103)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Code of Conduct](#code-of-conduct)
 
-This library is considered complete and in maintenance mode. New features will be added if Firebase Dynamic Links released new updates
 
-### Information
-Travis CI build is failing because dry-configurable v0.11 is not compatible with 
-Ruby 2.3. However Bundler will install lower version if your ruby is 2.3. So there is nothing to worry about
+## Setup
+
+Before you begin, you need to register at Firebase, and find following data:
+1. Firebase API key
+
+   Open Open the Settings page of the Firebase console. If you are prompted to choose a project, select your Firebase project from the menu. The API key is a Web API Key field, you need to a note this key.
+2. Dynamic Links domain
+
+   In the Firebase console, open the Dynamic Links section, accept the terms of service if prompted, and copy the dynamic links host.
+   Usually it's like `https://xxx.page.link`. You can use your own custom domain to make it shorter. Reference: https://firebase.google.com/docs/dynamic-links/custom-domains
 
 ## Installation
 
@@ -56,10 +54,10 @@ Or install it yourself as:
       # the adapter should be supported by Faraday
       # more info look at https://github.com/lostisland/faraday/tree/master/test/adapters
       # Faraday.default_adapter is the default adapter
-      config.adapter = :httpclient
+      config.adapter = :httpclient # optional, default is net_http
 
       # required
-      config.api_key = 'API_KEY'
+      config.api_key = 'API_KEY' # required
 
       # default 'UNGUESSABLE'
       config.suffix_option = 'SHORT' or 'UNGUESSABLE'
@@ -68,7 +66,7 @@ Or install it yourself as:
       config.dynamic_link_domain = 'https://xyz.app.goo.gl'
 
       # default 3 seconds
-      config.timeout = 3 
+      config.timeout = 3
 
       # default 3 seconds
       config.open_timeout = 3
@@ -77,21 +75,21 @@ Or install it yourself as:
 
 ### Shorten a link
 This method shortens a link with up to the first parameter in tact. Use this method if you do not have more than one
-parameter in the URL. Shortening an URL with more than one parameters will result in truncation of parameters after the 
+parameter in the URL. Shortening an URL with more than one parameters will result in truncation of parameters after the
 first one.
 
 ```ruby
     client = FirebaseDynamicLink::Client.new
     link = "http://domain.com/path/path"
     options = {
-      # optional, to override default suffix default config 
-      suffix_option: '', 
+      # optional, to override default suffix default config
+      suffix_option: '',
 
       # optional, to override default dynamic_link_domain default config
-      dynamic_link_domain: '', 
+      dynamic_link_domain: '',
 
       # optional, timeout of each request of this instance
-      timeout: 10, 
+      timeout: 10,
 
       # optional, open timeout of each request of this instance
       open_timeout: 10
@@ -102,20 +100,20 @@ first one.
 ```
 
 ### Shorten parameters
-This method allows shortening of an URL with multiple parameters. 
+This method allows shortening of an URL with multiple parameters.
 
 ```ruby
     client = FirebaseDynamicLink::Client.new
     link = "http://domain.com/path/path?key1=value1&key2=val2&key3=val3"
     options = {
-      # optional, to override default suffix default config 
-      suffix_option: '', 
+      # optional, to override default suffix default config
+      suffix_option: '',
 
       # optional, to override default dynamic_link_domain default config
-      dynamic_link_domain: '', 
+      dynamic_link_domain: '',
 
       # optional, timeout of each request of this instance
-      timeout: 10, 
+      timeout: 10,
 
       # optional, open timeout of each request of this instance
       open_timeout: 10
@@ -141,17 +139,17 @@ If request successful, then the result should be like following hash object
 Or if the request reached daily quota, client will throw `FirebaseDynamicLink::QuotaExceeded` error
 
 ```ruby
-    { 
-      :link=>"https://--.app.goo.gl/ukph", 
-      :preview_link=>"https://--.app.goo.gl/ukph?d=1", 
+    {
+      :link=>"https://--.app.goo.gl/ukph",
+      :preview_link=>"https://--.app.goo.gl/ukph?d=1",
       :warning=>[
-           { 
+           {
              "warningCode"=>"UNRECOGNIZED_PARAM",
              "warningMessage"=>"..."
-           }, 
+           },
            {
              "warningCode"=>"..."
-           }, 
+           },
            {
              "warningCode"=>"..."
            }
@@ -161,16 +159,22 @@ Or if the request reached daily quota, client will throw `FirebaseDynamicLink::Q
 
 Otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
 
-## CHANGES
+## CHANGELOG
 
-VERSION:
+### V1.0.5
 
-* 1.0.3 
-  Update Dry-configurable dependencies to version 0.6.0
+* Update minimum ruby version from 2.6 to 3.0
+* Update Dry-configurable minimum version to 0.9
+* Update Faraday version from v0.16 upto v2.0.0
+
+### V1.0.3
+Update Dry-configurable dependencies to version 0.6.0
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies.
+Copy `.env.template` to `.env` and update the values.
+Then, run `bundle exec appraisal install && bundle exec appraisal rspec` to run the tests.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 

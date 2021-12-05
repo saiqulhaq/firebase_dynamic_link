@@ -3,11 +3,11 @@
 RSpec.describe FirebaseDynamicLink::LinkRenderer do
   let(:success_response) do
     OpenStruct.new(status: 200, body: {
-      shortLink: "http://link",
-      previewLink: "http://xxx.goo.gl/foo?preview",
+      shortLink: 'http://link',
+      previewLink: 'http://xxx.goo.gl/foo?preview',
       warning: [{
-        "warningCode" => "UNRECOGNIZED_PARAM",
-        "warningMessage" => "..."
+        'warningCode' => 'UNRECOGNIZED_PARAM',
+        'warningMessage' => '...'
       }]
     }.to_json)
   end
@@ -15,16 +15,16 @@ RSpec.describe FirebaseDynamicLink::LinkRenderer do
   let(:fail_response) do
     OpenStruct.new(status: [422, 500].sample, body: {
       error: {
-        message: "xxx"
+        message: 'xxx'
       }
     }.to_json)
   end
 
   let(:instance) { described_class.new }
 
-  describe "#render" do
-    context "when response is success" do
-      it "parsed output correctly" do
+  describe '#render' do
+    context 'when response is success' do
+      it 'parsed output correctly' do
         output = instance.render(success_response)
         expect(output).to have_key(:link)
         expect(output).to have_key(:preview_link)
@@ -32,7 +32,7 @@ RSpec.describe FirebaseDynamicLink::LinkRenderer do
         expect(output[:link]).to eq('http://link')
       end
 
-      it "raise error if response body has error key" do
+      it 'raise error if response body has error key' do
         success_response.body = JSON.parse(success_response.body).merge(error: 'foo').to_json
         expect do
           instance.render(success_response)
@@ -40,14 +40,14 @@ RSpec.describe FirebaseDynamicLink::LinkRenderer do
       end
     end
 
-    context "when response is fail" do
-      it "raises error" do
+    context 'when response is fail' do
+      it 'raises error' do
         expect do
           instance.render(fail_response)
         end.to raise_error(FirebaseDynamicLink::ConnectionError)
       end
 
-      it "render response.body if response.body.error.message is not exist" do
+      it 'render response.body if response.body.error.message is not exist' do
         fail_response.body = 'foobar'
         expect do
           instance.render(fail_response)
@@ -55,8 +55,8 @@ RSpec.describe FirebaseDynamicLink::LinkRenderer do
       end
     end
 
-    context "when response.status is 429" do
-      it "raise FirebaseDynamicLink::QuotaExceeded" do
+    context 'when response.status is 429' do
+      it 'raise FirebaseDynamicLink::QuotaExceeded' do
         response = fail_response
         response.status = 429
         expect do
