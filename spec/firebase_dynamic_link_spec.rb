@@ -11,6 +11,7 @@ RSpec.describe FirebaseDynamicLink do
 
   describe '.config' do
     subject { described_class.config }
+
     {
       adapter: {
         default: Faraday.default_adapter,

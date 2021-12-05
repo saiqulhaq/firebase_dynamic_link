@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe FirebaseDynamicLink::Connection do
-  let(:instance) { described_class.new('http://saiqulhaq.com') }
-
   subject { instance }
+
+  let(:instance) { described_class.new('http://saiqulhaq.com') }
 
   describe '#timeout' do
     it 'uses default config timeout as default' do

@@ -2,6 +2,7 @@
 
 RSpec.describe FirebaseDynamicLink::Client do
   before(:all) { FirebaseDynamicLink.reset_config }
+
   let(:connection_failed_class) do
     Class.new do
       def post(*)
@@ -30,15 +31,15 @@ RSpec.describe FirebaseDynamicLink::Client do
       VCR.use_cassette("shorten_link-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
         options = { suffix_option: 'SHORT' }
         result = subject.shorten_link(link, options)
-        expect(result[:link]).to_not eq('')
-        expect(result[:link]).to_not eq(link)
+        expect(result[:link]).not_to eq('')
+        expect(result[:link]).not_to eq(link)
       end
 
       VCR.use_cassette("shorten_link-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
         options = { suffix_option: 'UNGUESSABLE', timout: 5 }
         result = subject.shorten_link(link, options)
-        expect(result[:link]).to_not eq('')
-        expect(result[:link]).to_not eq(link)
+        expect(result[:link]).not_to eq('')
+        expect(result[:link]).not_to eq(link)
       end
     end
 
@@ -92,6 +93,7 @@ RSpec.describe FirebaseDynamicLink::Client do
         }
       }
     end
+
     it 'shorten link correctly' do
       VCR.use_cassette("shorten_parameters-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
         options = {
@@ -101,9 +103,9 @@ RSpec.describe FirebaseDynamicLink::Client do
 
         expect do
           result = subject.shorten_parameters(parameters, options)
-          expect(result[:link]).to_not eq('')
-          expect(result[:link]).to_not eq(link)
-        end.to_not raise_error
+          expect(result[:link]).not_to eq('')
+          expect(result[:link]).not_to eq(link)
+        end.not_to raise_error
       end
 
       VCR.use_cassette("shorten_parameters-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
@@ -114,9 +116,9 @@ RSpec.describe FirebaseDynamicLink::Client do
 
         expect do
           result = subject.shorten_parameters(parameters, options)
-          expect(result[:link]).to_not eq('')
-          expect(result[:link]).to_not eq(link)
-        end.to_not raise_error
+          expect(result[:link]).not_to eq('')
+          expect(result[:link]).not_to eq(link)
+        end.not_to raise_error
       end
     end
 

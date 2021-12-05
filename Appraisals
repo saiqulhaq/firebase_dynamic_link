@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 appraise 'faraday-0.16-dry-0.9' do
   gem 'dry-configurable', '0.9.0'
   gem 'faraday', '0.16.2'
