@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['M Saiqul Haq']
   spec.email         = ['saiqulhaq@gmail.com']
 
-  spec.summary       = 'Ruby client for Firebase Dynamic Link service'
-  spec.description   = spec.summary
+  spec.summary       = 'Create a short link or deep link'
+  spec.description   = 'Create deep link for web and mobile app using Firebase Dynamic Links service'
   spec.homepage      = 'https://github.com/saiqulhaq/firebase_dynamic_link'
   spec.license       = 'MIT'
   spec.metadata['yard.run'] = 'yri'
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'case_transform2', '>= 1.0', '< 2.0'
-  spec.add_runtime_dependency 'dry-configurable', '>= 0.6', '< 1.0'
+  spec.add_runtime_dependency 'dry-configurable', '>= 0.9', '< 1.0'
   spec.add_runtime_dependency 'faraday', '>= 0.16', '< 3.0'
   spec.add_runtime_dependency 'faraday-net_http', '>= 1.0', '< 2.0'
 
