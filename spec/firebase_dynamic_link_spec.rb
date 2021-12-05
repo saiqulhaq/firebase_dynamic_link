@@ -3,7 +3,7 @@
 require 'faraday'
 
 RSpec.describe FirebaseDynamicLink do
-  before(:all) { FirebaseDynamicLink.reset_config }
+  before(:all) { described_class.reset_config }
 
   it 'has a version number' do
     expect(FirebaseDynamicLink::VERSION).to eq('1.0.4')
