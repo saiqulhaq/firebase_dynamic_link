@@ -10,9 +10,10 @@ module FirebaseDynamicLink
   class Client
     extend Forwardable
 
-    def initialize
+    def initialize(api_key: config.api_key)
       @link_renderer = FirebaseDynamicLink::LinkRenderer.new
-      @connection = FirebaseDynamicLink::Connection.new(end_point)
+      short_links_url = end_point(api_key)
+      @connection = FirebaseDynamicLink::Connection.new(short_links_url)
     end
 
     # @param link [String] required
@@ -156,8 +157,8 @@ module FirebaseDynamicLink
       "#{dynamic_link_domain}?link=#{link}"
     end
 
-    def end_point
-      "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=#{config.api_key}"
+    def end_point(api_key)
+      "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=#{api_key}"
     end
   end
 end

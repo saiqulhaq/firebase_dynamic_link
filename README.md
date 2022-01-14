@@ -159,6 +159,16 @@ Or if the request reached daily quota, client will throw `FirebaseDynamicLink::Q
 
 Otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
 
+### More than one firebase project
+
+If you have more than one firebase project you can pass your `api_key` to `FirebaseDynamicLink::Client` constructor additionally to `FirebaseDynamicLink` configuration.
+Api key provided by constructor has precendece over this provided by `FirebaseDynamicLink` configuration.
+
+```
+    client = FirebaseDynamicLink::Client.new(api_key: 'API_KEY')
+```
+
+
 ## CHANGELOG
 
 ### V1.0.5
