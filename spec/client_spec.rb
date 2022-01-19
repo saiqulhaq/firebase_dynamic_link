@@ -26,17 +26,17 @@ RSpec.describe FirebaseDynamicLink::Client do
   end
 
   describe '#shorten_link' do
-    shared_examples 'short link created correctly' do
+    shared_examples 'short link created correctly' do |api_key_location|
       it 'shorten link correctly' do
         link = 'http://saiqulhaq.com'
-        VCR.use_cassette("shorten_link-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
+        VCR.use_cassette("shorten_link-SHORT-#{ENV['BUNDLE_GEMFILE']}-#{api_key_location}") do
           options = { suffix_option: 'SHORT' }
           result = subject.shorten_link(link, options)
           expect(result[:link]).not_to eq('')
           expect(result[:link]).not_to eq(link)
         end
-  
-        VCR.use_cassette("shorten_link-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
+
+        VCR.use_cassette("shorten_link-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}-#{api_key_location}") do
           options = { suffix_option: 'UNGUESSABLE', timout: 5 }
           result = subject.shorten_link(link, options)
           expect(result[:link]).not_to eq('')
@@ -45,7 +45,7 @@ RSpec.describe FirebaseDynamicLink::Client do
       end
     end
 
-    include_examples 'short link created correctly'
+    include_examples 'short link created correctly', :global
 
     context 'with api_key provided to constructor' do
       subject { described_class.new(api_key: ENV['API_KEY']) }
@@ -58,7 +58,7 @@ RSpec.describe FirebaseDynamicLink::Client do
         end
       end
 
-      include_examples 'short link created correctly'
+      include_examples 'short link created correctly', :local
     end
 
     it 'raise FirebaseDynamicLink::ConnectionError if Faraday::ConnectionFailed raised' do
