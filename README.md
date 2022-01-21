@@ -11,6 +11,7 @@ Firebase Dynamic Link is a tool to create a deep link of your webpage. It can be
   - [Configure the HTTP client](#configure-the-http-client)
   - [Shorten a link](#shorten-a-link)
   - [Shorten parameters](#shorten-parameters)
+  - [More than one firebase project](#more-than-one-firebase-project)
 - [CHANGELOG](#changelog)
   - [V1.0.5](#v105)
   - [V1.0.3](#v103)
@@ -56,8 +57,8 @@ Or install it yourself as:
       # Faraday.default_adapter is the default adapter
       config.adapter = :httpclient # optional, default is net_http
 
-      # required
-      config.api_key = 'API_KEY' # required
+      # required, taken as default firebase api key when api_key parameter isn't passed to FirebaseDynamicLink::Client constructor
+      config.api_key = 'API_KEY'
 
       # default 'UNGUESSABLE'
       config.suffix_option = 'SHORT' or 'UNGUESSABLE'
@@ -158,6 +159,16 @@ Or if the request reached daily quota, client will throw `FirebaseDynamicLink::Q
 ```
 
 Otherwise it will throw `FirebaseDynamicLink::ConnectionError` error, with message = http error message
+
+### More than one firebase project
+
+If you have more than one firebase project you can pass your `api_key` to `FirebaseDynamicLink::Client` constructor additionally to `FirebaseDynamicLink` configuration.
+Api key provided by constructor has precendece over this provided by `FirebaseDynamicLink` configuration.
+
+```
+    client = FirebaseDynamicLink::Client.new(api_key: 'API_KEY')
+```
+
 
 ## CHANGELOG
 
