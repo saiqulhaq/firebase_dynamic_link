@@ -113,7 +113,8 @@ RSpec.describe FirebaseDynamicLink::Client do
     end
 
     it 'shorten link correctly' do
-      VCR.use_cassette("shorten_parameters-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
+      api_key = subject.instance_variable_get "@api_key"
+      VCR.use_cassette("shorten_parameters-SHORT-#{ENV['BUNDLE_GEMFILE']}-#{api_key}") do
         options = {
           suffix_option: 'SHORT'
           # dynamic_link_domain: 'foo' # optional
@@ -126,7 +127,7 @@ RSpec.describe FirebaseDynamicLink::Client do
         end.not_to raise_error
       end
 
-      VCR.use_cassette("shorten_parameters-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
+      VCR.use_cassette("shorten_parameters-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}-#{api_key}") do
         options = {
           suffix_option: 'UNGUESSABLE'
           # dynamic_link_domain: 'foo' # optional
