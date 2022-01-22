@@ -27,20 +27,42 @@ RSpec.describe FirebaseDynamicLink::Client do
 
   describe '#shorten_link' do
     shared_examples 'short link created correctly' do |api_key_location|
-      it 'shorten link correctly' do
-        link = 'http://saiqulhaq.com'
-        VCR.use_cassette("shorten_link-SHORT-#{ENV['BUNDLE_GEMFILE']}-#{api_key_location}") do
-          options = { suffix_option: 'SHORT' }
-          result = subject.shorten_link(link, options)
-          expect(result[:link]).not_to eq('')
-          expect(result[:link]).not_to eq(link)
+      context 'when faraday default adapter is not defined' do
+        it 'raises error' do
+          if FirebaseDynamicLink::USE_FARADAY_2
+            Faraday.default_adapter = nil
+
+            link = 'http://saiqulhaq.com'
+            options = { suffix_option: 'SHORT' }
+            expect {
+              subject.shorten_link(link, options)
+            }.to raise_error
+          else
+            expect(true).to be_truthy
+          end
+        end
+      end
+
+      context 'when faraday default adapter is defined' do
+        before do
+          Faraday.default_adapter = :net_http if FirebaseDynamicLink::USE_FARADAY_2
         end
 
-        VCR.use_cassette("shorten_link-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}-#{api_key_location}") do
-          options = { suffix_option: 'UNGUESSABLE', timout: 5 }
-          result = subject.shorten_link(link, options)
-          expect(result[:link]).not_to eq('')
-          expect(result[:link]).not_to eq(link)
+        it 'shorten link correctly' do
+          link = 'http://saiqulhaq.com'
+          VCR.use_cassette("shorten_link-SHORT-#{ENV['BUNDLE_GEMFILE']}-#{api_key_location}") do
+            options = { suffix_option: 'SHORT' }
+            result = subject.shorten_link(link, options)
+            expect(result[:link]).not_to eq('')
+            expect(result[:link]).not_to eq(link)
+          end
+
+          VCR.use_cassette("shorten_link-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}-#{api_key_location}") do
+            options = { suffix_option: 'UNGUESSABLE', timout: 5 }
+            result = subject.shorten_link(link, options)
+            expect(result[:link]).not_to eq('')
+            expect(result[:link]).not_to eq(link)
+          end
         end
       end
     end
@@ -112,46 +134,68 @@ RSpec.describe FirebaseDynamicLink::Client do
       }
     end
 
-    it 'shorten link correctly' do
-      VCR.use_cassette("shorten_parameters-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
-        options = {
-          suffix_option: 'SHORT'
-          # dynamic_link_domain: 'foo' # optional
-        }
+    context 'when faraday default adapter is not defined' do
+      it 'raises error' do
+        if FirebaseDynamicLink::USE_FARADAY_2
+          Faraday.default_adapter = nil
 
-        expect do
-          result = subject.shorten_parameters(parameters, options)
-          expect(result[:link]).not_to eq('')
-          expect(result[:link]).not_to eq(link)
-        end.not_to raise_error
-      end
-
-      VCR.use_cassette("shorten_parameters-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
-        options = {
-          suffix_option: 'UNGUESSABLE'
-          # dynamic_link_domain: 'foo' # optional
-        }
-
-        expect do
-          result = subject.shorten_parameters(parameters, options)
-          expect(result[:link]).not_to eq('')
-          expect(result[:link]).not_to eq(link)
-        end.not_to raise_error
+          link = 'http://saiqulhaq.com'
+          options = { suffix_option: 'SHORT' }
+          expect {
+            subject.shorten_parameters(parameters, options)
+          }.to raise_error
+        else
+          expect(true).to be_truthy
+        end
       end
     end
 
-    it 'raise FirebaseDynamicLink::ConnectionError if Faraday::ConnectionFailed raised' do
-      allow_any_instance_of(described_class).to receive(:connection).and_return(connection_failed_class.new)
-      expect do
-        subject.shorten_parameters(parameters)
-      end.to raise_error(FirebaseDynamicLink::ConnectionError)
-    end
+    context 'when faraday default adapter is defined' do
+      before do
+        Faraday.default_adapter = :net_http if FirebaseDynamicLink::USE_FARADAY_2
+      end
 
-    it 'raise FirebaseDynamicLink::ConnectionError if Faraday::TimeoutError raised' do
-      allow_any_instance_of(described_class).to receive(:connection).and_return(timout_error_class.new)
-      expect do
-        subject.shorten_link(parameters)
-      end.to raise_error(FirebaseDynamicLink::ConnectionError)
+      it 'shorten link correctly' do
+        VCR.use_cassette("shorten_parameters-SHORT-#{ENV['BUNDLE_GEMFILE']}") do
+          options = {
+            suffix_option: 'SHORT'
+            # dynamic_link_domain: 'foo' # optional
+          }
+
+          expect do
+            result = subject.shorten_parameters(parameters, options)
+            expect(result[:link]).not_to eq('')
+            expect(result[:link]).not_to eq(link)
+          end.not_to raise_error
+        end
+
+        VCR.use_cassette("shorten_parameters-UNGUESSABLE-#{ENV['BUNDLE_GEMFILE']}") do
+          options = {
+            suffix_option: 'UNGUESSABLE'
+            # dynamic_link_domain: 'foo' # optional
+          }
+
+          expect do
+            result = subject.shorten_parameters(parameters, options)
+            expect(result[:link]).not_to eq('')
+            expect(result[:link]).not_to eq(link)
+          end.not_to raise_error
+        end
+      end
+
+      it 'raise FirebaseDynamicLink::ConnectionError if Faraday::ConnectionFailed raised' do
+        allow_any_instance_of(described_class).to receive(:connection).and_return(connection_failed_class.new)
+        expect do
+          subject.shorten_parameters(parameters)
+        end.to raise_error(FirebaseDynamicLink::ConnectionError)
+      end
+
+      it 'raise FirebaseDynamicLink::ConnectionError if Faraday::TimeoutError raised' do
+        allow_any_instance_of(described_class).to receive(:connection).and_return(timout_error_class.new)
+        expect do
+          subject.shorten_parameters(parameters)
+        end.to raise_error(FirebaseDynamicLink::ConnectionError)
+      end
     end
   end
 end

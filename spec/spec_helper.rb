@@ -51,6 +51,10 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.after(:each) do
+    Faraday.default_connection = nil
+  end
 end
 
 VCR.configure do |config|
