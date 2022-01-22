@@ -172,14 +172,7 @@ Api key provided by constructor has precendece over this provided by `FirebaseDy
 
 ## CHANGELOG
 
-### V1.0.5
-
-* Update minimum ruby version from 2.6 to 3.0
-* Update Dry-configurable minimum version to 0.9
-* Update Faraday version from v0.16 upto v2.0.0
-
-### V1.0.3
-Update Dry-configurable dependencies to version 0.6.0
+See https://github.com/saiqulhaq/firebase_dynamic_link/releases
 
 ## Development
 
