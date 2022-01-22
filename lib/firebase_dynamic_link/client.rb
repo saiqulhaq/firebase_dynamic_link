@@ -13,7 +13,6 @@ module FirebaseDynamicLink
     def initialize(api_key: config.api_key)
       @link_renderer = FirebaseDynamicLink::LinkRenderer.new
       short_links_url = end_point(api_key)
-      @api_key = api_key
       @connection = FirebaseDynamicLink::Connection.new(short_links_url)
     end
 
