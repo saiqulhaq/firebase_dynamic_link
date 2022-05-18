@@ -12,7 +12,7 @@ module FirebaseDynamicLink
   extend Dry::Configurable
 
   USE_FARADAY_2 = Faraday::VERSION.to_i == 2
-  USE_DRY_CONFIGURABLE_0_13 = Dry::Configurable::VERSION.to_f == 0.13
+  USE_DRY_CONFIGURABLE_0_13 = Dry::Configurable::VERSION.to_f >= 0.13
 
   # called when invalid configuration given
   class InvalidConfig < StandardError; end
