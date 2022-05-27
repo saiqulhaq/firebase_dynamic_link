@@ -16,3 +16,4 @@ doc
 Gemfile.lock
 .env
 .secrets
+.ruby-version
