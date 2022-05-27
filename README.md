@@ -13,8 +13,6 @@ Firebase Dynamic Link is a tool to create a deep link of your webpage. It can be
   - [Shorten parameters](#shorten-parameters)
   - [More than one firebase project](#more-than-one-firebase-project)
 - [CHANGELOG](#changelog)
-  - [V1.0.5](#v105)
-  - [V1.0.3](#v103)
 - [Development](#development)
 - [Contributing](#contributing)
 - [License](#license)
