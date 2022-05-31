@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'dry-configurable', '>= 0.9', '< 1.0'
   spec.add_runtime_dependency 'faraday', '>= 0.16', '< 3.0'
   spec.add_runtime_dependency 'faraday-net_http', '>= 1.0', '< 3.0'
+  spec.add_runtime_dependency 'sorbet-runtime'
 
   spec.add_development_dependency 'appraisal', '~> 2.4.1'
   spec.add_development_dependency 'bootsnap', '~> 1.9.3'
@@ -40,5 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 1.22'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.5.0'
   spec.add_development_dependency 'simplecov', '~> 0.17.1'
+  spec.add_development_dependency 'sorbet'
+  spec.add_development_dependency 'sord'
   spec.add_development_dependency 'vcr', '~> 4.0', '>= 4.0.0'
 end
