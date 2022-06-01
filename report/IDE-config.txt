@@ -1,0 +1,27 @@
+MegaLinter can help you to define the same linter configuration locally
+
+INSTRUCTIONS
+
+- Copy the content of IDE-config folder at the root of your repository
+- if you are using Visual Studio Code, just reopen your project after the copy, and you will be prompted to install recommended extensions
+- If not, you can install extensions manually using the following links.
+
+IDE EXTENSIONS APPLICABLE TO YOUR PROJECT
+
+rubocop (RUBY)
+  - atom:
+    - linter-rubocop: https://github.com/AtomLinter/linter-rubocop
+  - brackets:
+    - brackets-rubocop: https://github.com/smockle-archive/brackets-rubocop
+  - emacs:
+    - rubocop-emacs: https://github.com/rubocop-hq/rubocop-emacs
+    - flycheck: https://github.com/flycheck/flycheck
+  - idea:
+    - RubyMine: https://www.jetbrains.com/help/idea/2017.1/rubocop.html
+  - sublime:
+    - sublime_rubocop: https://github.com/pderichs/sublime_rubocop
+  - vim:
+    - vim-rubocop: https://github.com/ngmy/vim-rubocop
+    - ale: https://github.com/w0rp/ale
+  - vscode:
+    - VsCode Ruby Extension: https://marketplace.visualstudio.com/items?itemName=rebornix.Ruby

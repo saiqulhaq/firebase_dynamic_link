@@ -1,0 +1,145 @@
+----------------------------------------------------------------------------------------------------
+-------------------------------------------- MegaLinter --------------------------------------------
+----------------------------------------------------------------------------------------------------
+ - Image Creation Date: 2022-05-15T19:58:30Z
+ - Image Revision: 7908c4d34
+ - Image Version: v5
+----------------------------------------------------------------------------------------------------
+The MegaLinter documentation can be found at:
+ - https://megalinter.github.io
+----------------------------------------------------------------------------------------------------
+GITHUB_REPOSITORY: saiqulhaq/firebase_dynamic_link
+GITHUB_REF: refs/pull/30/merge
+GITHUB_RUN_ID: 2418505211
+
+
+RST_RSTFMT has been temporary disabled in MegaLinter, please use a previous MegaLinter version or wait for the next one !
+Skipped linters: ACTION_ACTIONLINT, ANSIBLE_ANSIBLE_LINT, ARM_ARM_TTK, BASH_EXEC, BASH_SHELLCHECK, BASH_SHFMT, CLOJURE_CLJ_KONDO, CLOUDFORMATION_CFN_LINT, COFFEE_COFFEELINT, COPYPASTE_JSCPD, CPP_CPPLINT, CREDENTIALS_SECRETLINT, CSHARP_DOTNET_FORMAT, CSS_SCSS_LINT, CSS_STYLELINT, C_CPPLINT, DART_DARTANALYZER, DOCKERFILE_DOCKERFILELINT, DOCKERFILE_HADOLINT, EDITORCONFIG_EDITORCONFIG_CHECKER, ENV_DOTENV_LINTER, GHERKIN_GHERKIN_LINT, GIT_GIT_DIFF, GO_GOLANGCI_LINT, GO_REVIVE, GRAPHQL_GRAPHQL_SCHEMA_LINTER, GROOVY_NPM_GROOVY_LINT, HTML_HTMLHINT, JAVASCRIPT_ES, JAVASCRIPT_PRETTIER, JAVASCRIPT_STANDARD, JAVA_CHECKSTYLE, JSON_ESLINT_PLUGIN_JSONC, JSON_JSONLINT, JSON_PRETTIER, JSON_V8R, JSX_ESLINT, KOTLIN_KTLINT, KUBERNETES_KUBECONFORM, KUBERNETES_KUBEVAL, LATEX_CHKTEX, LUA_LUACHECK, MARKDOWN_MARKDOWN_LINK_CHECK, MARKDOWN_MARKDOWN_TABLE_FORMATTER, MARKDOWN_REMARK_LINT, OPENAPI_SPECTRAL, PERL_PERLCRITIC, PHP_BUILTIN, PHP_PHPCS, PHP_PHPLINT, PHP_PHPSTAN, PHP_PSALM, POWERSHELL_POWERSHELL, PROTOBUF_PROTOLINT, PUPPET_PUPPET_LINT, PYTHON_BANDIT, PYTHON_BLACK, PYTHON_FLAKE8, PYTHON_ISORT, PYTHON_MYPY, PYTHON_PYLINT, RAKU_RAKU, RST_RSTCHECK, RST_RSTFMT, RST_RST_LINT, RUST_CLIPPY, R_LINTR, SALESFORCE_SFDX_SCANNER_APEX, SALESFORCE_SFDX_SCANNER_AURA, SALESFORCE_SFDX_SCANNER_LWC, SCALA_SCALAFIX, SNAKEMAKE_LINT, SNAKEMAKE_SNAKEFMT, SPELL_CSPELL, SQL_SQLFLUFF, SQL_SQL_LINT, SQL_TSQLLINT, SWIFT_SWIFTLINT, TEKTON_TEKTON_LINT, TERRAFORM_CHECKOV, TERRAFORM_KICS, TERRAFORM_TERRAFORM_FMT, TERRAFORM_TERRAGRUNT, TERRAFORM_TERRASCAN, TERRAFORM_TFLINT, TSX_ESLINT, TYPESCRIPT_ES, TYPESCRIPT_PRETTIER, TYPESCRIPT_STANDARD, VBDOTNET_DOTNET_FORMAT, XML_XMLLINT, YAML_PRETTIER, YAML_V8R, YAML_YAMLLINT
+To receive reports as email, please set variable EMAIL_REPORTER_EMAIL
+Listing updated files in [/github/workspace] using git diff.
+Modified files:
+.github/workflows/mega-linter.yml
+.mega-linter.yml
+firebase_dynamic_link.gemspec
+lib/firebase_dynamic_link.rb
+lib/firebase_dynamic_link/client.rb
+lib/firebase_dynamic_link/connection.rb
+lib/firebase_dynamic_link/link_renderer.rb
+lib/firebase_dynamic_link/version.rb
+sorbet/config
+sorbet/rbi/firebase_dynamic_link.rbi
+sorbet/rbi/gems/appraisal.rbi
+sorbet/rbi/gems/ast.rbi
+sorbet/rbi/gems/bootsnap.rbi
+sorbet/rbi/gems/bundler-audit.rbi
+sorbet/rbi/gems/case_transform2.rbi
+sorbet/rbi/gems/coderay.rbi
+sorbet/rbi/gems/commander.rbi
+sorbet/rbi/gems/concurrent-ruby.rbi
+sorbet/rbi/gems/docile.rbi
+sorbet/rbi/gems/dotenv.rbi
+sorbet/rbi/gems/dry-configurable.rbi
+sorbet/rbi/gems/dry-core.rbi
+sorbet/rbi/gems/faraday-net_http.rbi
+sorbet/rbi/gems/faraday.rbi
+sorbet/rbi/gems/firebase_dynamic_link.rbi
+sorbet/rbi/gems/highline.rbi
+sorbet/rbi/gems/method_source.rbi
+sorbet/rbi/gems/msgpack.rbi
+sorbet/rbi/gems/parallel.rbi
+sorbet/rbi/gems/parlour.rbi
+sorbet/rbi/gems/parser.rbi
+sorbet/rbi/gems/pry.rbi
+sorbet/rbi/gems/rainbow.rbi
+sorbet/rbi/gems/rake.rbi
+sorbet/rbi/gems/regexp_parser.rbi
+sorbet/rbi/gems/rexml.rbi
+sorbet/rbi/gems/rspec-core.rbi
+sorbet/rbi/gems/rspec-expectations.rbi
+sorbet/rbi/gems/rspec-mocks.rbi
+sorbet/rbi/gems/rspec-support.rbi
+sorbet/rbi/gems/rspec.rbi
+sorbet/rbi/gems/rubocop-ast.rbi
+sorbet/rbi/gems/rubocop-rspec.rbi
+sorbet/rbi/gems/rubocop.rbi
+sorbet/rbi/gems/ruby-progressbar.rbi
+sorbet/rbi/gems/simplecov-html.rbi
+sorbet/rbi/gems/simplecov.rbi
+sorbet/rbi/gems/sord.rbi
+sorbet/rbi/gems/thor.rbi
+sorbet/rbi/gems/unicode-display_width.rbi
+sorbet/rbi/gems/vcr.rbi
+sorbet/rbi/gems/yard.rbi
+sorbet/rbi/hidden-definitions/errors.txt
+sorbet/rbi/hidden-definitions/hidden.rbi
+sorbet/rbi/sorbet-typed/lib/bundler-audit/all/bundler-audit.rbi
+sorbet/rbi/sorbet-typed/lib/faraday/all/faraday.rbi
+sorbet/rbi/sorbet-typed/lib/rainbow/all/rainbow.rbi
+sorbet/rbi/sorbet-typed/lib/rake/all/rake.rbi
+sorbet/rbi/sorbet-typed/lib/rspec-core/all/rspec-core.rbi
+sorbet/rbi/sorbet-typed/lib/rubocop/>=1.8/rubocop.rbi
+sorbet/rbi/sorbet-typed/lib/thor/all/thor.rbi
+sorbet/rbi/sorbet-typed/lib/yard/all/yard.rbi
+spec/client_spec.rb
+spec/connection_spec.rb
+spec/firebase_dynamic_link_spec.rb
+spec/link_renderer_spec.rb
+spec/spec_helper.rb
+- File extensions: .md, .rb
+- Excluding .gitignored files [0]: 
+Kept [10] files on [67] found files
+
++----MATCHING LINTERS---+----------+----------------+------------+
+| Descriptor | Linter   | Criteria | Matching files | Format/Fix |
++------------+----------+----------+----------------+------------+
+| RUBY       | rubocop  | .rb      | 10             | yes        |
+| SPELL      | misspell |          | 10             | yes        |
++------------+----------+----------+----------------+------------+
+
+
+[1m### Processed [SPELL] files[0m
+- Using [misspell v0.3.4] https://megalinter.github.io/v5/descriptors/spell_misspell
+- MegaLinter key: [SPELL_MISSPELL]
+- Rules config: identified by [misspell]
+[misspell] lib/firebase_dynamic_link.rb
+[misspell] lib/firebase_dynamic_link/client.rb
+[misspell] lib/firebase_dynamic_link/connection.rb
+[36m[misspell] lib/firebase_dynamic_link/link_renderer.rb - FIXED[0m
+[misspell] lib/firebase_dynamic_link/version.rb
+[misspell] spec/client_spec.rb
+[misspell] spec/connection_spec.rb
+[misspell] spec/firebase_dynamic_link_spec.rb
+[misspell] spec/link_renderer_spec.rb
+[misspell] spec/spec_helper.rb
+[32m✅ Linted [SPELL] files with [misspell] successfully - (0.07s)[0m
+[Text Reporter] Generated TEXT report: /github/workspace/report/linters_logs/SUCCESS-SPELL_MISSPELL.log
+
+[1m### Processed [RUBY] files[0m
+- Using [rubocop v1.29.1] https://megalinter.github.io/v5/descriptors/ruby_rubocop
+- MegaLinter key: [RUBY_RUBOCOP]
+- Rules config: [.ruby-lint.yml]
+[36m[rubocop] lib/firebase_dynamic_link.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] lib/firebase_dynamic_link/client.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] lib/firebase_dynamic_link/connection.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] lib/firebase_dynamic_link/link_renderer.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] lib/firebase_dynamic_link/version.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] spec/client_spec.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] spec/connection_spec.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] spec/firebase_dynamic_link_spec.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] spec/link_renderer_spec.rb - SUCCESS - 0 error(s) - FIXED[0m
+[36m[rubocop] spec/spec_helper.rb - SUCCESS - 0 error(s) - FIXED[0m
+[32m✅ Linted [RUBY] files with [rubocop] successfully - (17.37s)[0m
+[Text Reporter] Generated TEXT report: /github/workspace/report/linters_logs/SUCCESS-RUBY_RUBOCOP.log
+
++----SUMMARY-+----------+---------------+-------+-------+--------+--------------+
+| Descriptor | Linter   | Mode          | Files | Fixed | Errors | Elapsed time |
++------------+----------+---------------+-------+-------+--------+--------------+
+| ✅ RUBY    | rubocop  | file          |    10 |    10 |      0 |       17.37s |
+| ✅ SPELL   | misspell | list_of_files |    10 |     1 |      0 |        0.07s |
++------------+----------+---------------+-------+-------+--------+--------------+
+
+Identified PR#30 from environment
+[GitHub Comment Reporter] Posted summary as comment on saiqulhaq/firebase_dynamic_link #PR30
+[Updated Sources Reporter] copied 10 fixed source files in folder /github/workspace/report/updated_sources.
+Download it from artifacts then copy-paste it in your local repo to apply linters updates
+[32m✅ Successfully linted all files without errors[0m

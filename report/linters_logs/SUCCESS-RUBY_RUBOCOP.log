@@ -1,0 +1,14 @@
+Results of rubocop linter (version 1.29.1)
+See documentation on https://megalinter.github.io/descriptors/ruby_rubocop/
+-----------------------------------------------
+
+✅ [SUCCESS] lib/firebase_dynamic_link.rb - FIXED
+✅ [SUCCESS] lib/firebase_dynamic_link/client.rb - FIXED
+✅ [SUCCESS] lib/firebase_dynamic_link/connection.rb - FIXED
+✅ [SUCCESS] lib/firebase_dynamic_link/link_renderer.rb - FIXED
+✅ [SUCCESS] lib/firebase_dynamic_link/version.rb - FIXED
+✅ [SUCCESS] spec/client_spec.rb - FIXED
+✅ [SUCCESS] spec/connection_spec.rb - FIXED
+✅ [SUCCESS] spec/firebase_dynamic_link_spec.rb - FIXED
+✅ [SUCCESS] spec/link_renderer_spec.rb - FIXED
+✅ [SUCCESS] spec/spec_helper.rb - FIXED
