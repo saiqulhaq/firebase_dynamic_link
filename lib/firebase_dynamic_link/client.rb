@@ -32,9 +32,9 @@ module FirebaseDynamicLink
       suffix_option = options[:suffix_option] if options.key?(:suffix_option)
 
       params = CaseTransform2.camel_lower(long_dynamic_link: build_link(link, options),
-                                          suffix: {
-                                            option: suffix_option || config.suffix_option
-                                          })
+        suffix: {
+          option: suffix_option || config.suffix_option
+        })
       response = connection.post(nil, params.to_json)
       link_renderer.render(response)
     rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
@@ -132,12 +132,12 @@ module FirebaseDynamicLink
 
       dynamic_link_domain = options.delete(:dynamic_link_domain)
       dynamic_link_domain ||= config.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig,
-                                                                  "Dynamic link domain is empty")
+        "Dynamic link domain is empty")
 
       params = CaseTransform2.camel_lower(dynamic_link_info: params.merge(domainUriPrefix: dynamic_link_domain),
-                                          suffix: {
-                                            option: suffix_option || config.suffix_option
-                                          })
+        suffix: {
+          option: suffix_option || config.suffix_option
+        })
       response = connection.post(nil, params.to_json)
       link_renderer.render(response)
     rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
@@ -154,7 +154,7 @@ module FirebaseDynamicLink
     def build_link(link, options)
       dynamic_link_domain = options.delete(:dynamic_link_domain)
       dynamic_link_domain ||= config.dynamic_link_domain || raise(FirebaseDynamicLink::InvalidConfig,
-                                                                  "Dynamic link domain is empty")
+        "Dynamic link domain is empty")
       "#{dynamic_link_domain}?link=#{link}"
     end
 

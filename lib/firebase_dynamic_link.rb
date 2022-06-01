@@ -108,21 +108,21 @@ module FirebaseDynamicLink
   if USE_DRY_CONFIGURABLE_0_13
     setting(:suffix_option, default: "UNGUESSABLE", constructor: lambda { |value|
       if %w[SHORT
-            UNGUESSABLE].include?(value)
+        UNGUESSABLE].include?(value)
         value
       else
         raise(FirebaseDynamicLink::InvalidConfig,
-              "default suffix option config is not valid")
+          "default suffix option config is not valid")
       end
     })
   else
     setting(:suffix_option, "UNGUESSABLE") do |value|
       if %w[SHORT
-            UNGUESSABLE].include?(value)
+        UNGUESSABLE].include?(value)
         value
       else
         raise(FirebaseDynamicLink::InvalidConfig,
-              "default suffix option config is not valid")
+          "default suffix option config is not valid")
       end
     end
 

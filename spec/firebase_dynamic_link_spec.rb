@@ -40,7 +40,7 @@ RSpec.describe FirebaseDynamicLink do
       }
     }.each do |method, meta|
       describe ".#{method}" do
-        it "default value is #{meta[:default].nil? ? 'nil' : meta[:default]}" do
+        it "default value is #{meta[:default].nil? ? "nil" : meta[:default]}" do
           if subject.respond_to? :values
             expect(subject.values[method]).to eq(meta[:default])
           else

@@ -53,7 +53,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.after(:each) do
+  config.after do
     Faraday.default_connection = nil
   end
 end
