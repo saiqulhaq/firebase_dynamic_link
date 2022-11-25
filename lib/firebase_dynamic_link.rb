@@ -1,12 +1,13 @@
+# typed: true
 # frozen_string_literal: true
 
-require 'dry-configurable'
-require 'dry/configurable/version'
-require 'faraday'
-require 'faraday/net_http' if Faraday::VERSION.to_f >= 2.0
-require 'firebase_dynamic_link/client'
-require 'firebase_dynamic_link/link_renderer'
-require 'firebase_dynamic_link/version'
+require "dry-configurable"
+require "dry/configurable/version"
+require "faraday"
+require "faraday/net_http" if Faraday::VERSION.to_f >= 2.0
+require "firebase_dynamic_link/client"
+require "firebase_dynamic_link/link_renderer"
+require "firebase_dynamic_link/version"
 
 module FirebaseDynamicLink
   extend Dry::Configurable
@@ -105,23 +106,23 @@ module FirebaseDynamicLink
   # @since 1.0.0
   # @!scope class
   if USE_DRY_CONFIGURABLE_0_13
-    setting(:suffix_option, default: 'UNGUESSABLE', constructor: lambda { |value|
+    setting(:suffix_option, default: "UNGUESSABLE", constructor: lambda { |value|
       if %w[SHORT
-            UNGUESSABLE].include?(value)
+        UNGUESSABLE].include?(value)
         value
       else
         raise(FirebaseDynamicLink::InvalidConfig,
-              'default suffix option config is not valid')
+          "default suffix option config is not valid")
       end
     })
   else
-    setting(:suffix_option, 'UNGUESSABLE') do |value|
+    setting(:suffix_option, "UNGUESSABLE") do |value|
       if %w[SHORT
-            UNGUESSABLE].include?(value)
+        UNGUESSABLE].include?(value)
         value
       else
         raise(FirebaseDynamicLink::InvalidConfig,
-              'default suffix option config is not valid')
+          "default suffix option config is not valid")
       end
     end
 

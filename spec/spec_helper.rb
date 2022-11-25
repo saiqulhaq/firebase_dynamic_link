@@ -1,35 +1,36 @@
+# typed: false
 # frozen_string_literal: true
 
-require 'bundler/setup'
-require 'bootsnap'
-require 'faraday'
+require "bundler/setup"
+require "bootsnap"
+require "faraday"
 
-enable_coverage = ENV.fetch('COVERAGE', 0).to_s == '1'
+enable_coverage = ENV.fetch("COVERAGE", 0).to_s == "1"
 
 Bootsnap.setup(
-  cache_dir: 'tmp/cache', # Path to your cache
+  cache_dir: "tmp/cache", # Path to your cache
   development_mode: true, # Current working environment, e.g. RACK_ENV, RAILS_ENV, etc
   load_path_cache: true, # Optimize the LOAD_PATH with a cache
   compile_cache_iseq: !enable_coverage, # Compile Ruby code into ISeq cache, breaks coverage reporting.
   compile_cache_yaml: true # Compile YAML into a cache
 )
 
-require 'dotenv/load'
+require "dotenv/load"
 
 if enable_coverage
-  require 'simplecov'
+  require "simplecov"
   SimpleCov.start
 end
 
-require 'firebase_dynamic_link'
-require 'vcr'
+require "firebase_dynamic_link"
+require "vcr"
 
 begin
-  require 'pry'
+  require "pry"
 rescue LoadError
 end
 
-require 'dry/configurable/test_interface'
+require "dry/configurable/test_interface"
 
 begin
   module FirebaseDynamicLink
@@ -43,7 +44,7 @@ end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = '.rspec_status'
+  config.example_status_persistence_file_path = ".rspec_status"
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
@@ -52,13 +53,13 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.after(:each) do
+  config.after do
     Faraday.default_connection = nil
   end
 end
 
 VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = true
-  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :faraday
 end

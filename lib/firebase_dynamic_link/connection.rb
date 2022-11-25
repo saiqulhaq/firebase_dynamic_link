@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module FirebaseDynamicLink
@@ -11,7 +12,7 @@ module FirebaseDynamicLink
 
     def initialize(end_point)
       @client = Faraday::Connection.new(url: end_point,
-                                        headers: { 'Content-Type' => 'application/json' })
+        headers: {"Content-Type" => "application/json"})
 
       client.options.timeout = FirebaseDynamicLink.config.timeout
       client.options.open_timeout = FirebaseDynamicLink.config.open_timeout
