@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firebase-dynamic-link
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: firebase-dynamic-link
+  template:
+    metadata:
+      labels:
+        app: firebase-dynamic-link
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      - image: localhost:5000/firebase_dynamic_link:v3
+        name: firebase-dynamic-link
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: firebase-dynamic-link
+spec:
+  type: ClusterIP
+  ports:
+    - name: "firebase-dynamic-link"
+      port: 8080
+  selector:
+    app: firebase-dynamic-link
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: firebase-dynamic-link
+  annotations:
+    dev.okteto.com/generate-host: firebase-dynamic-link
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: firebase-dynamic-link
+                port:
+                  number: 8080
+            path: /
+            pathType: ImplementationSpecific

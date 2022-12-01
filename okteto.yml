@@ -1,0 +1,13 @@
+build:
+  firebase-dynamic-link:
+    image: localhost:5000/firebase_dynamic_link:v3
+    dockerfile: Dockerfile
+deploy:
+  - kubectl apply -f k8s.yml
+dev:
+  firebase-dynamic-link:
+    command: bash
+    sync:
+      - .:/usr/src/app
+    # volumes:
+    #   - /usr/local/bundle/cache
