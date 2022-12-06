@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby
-      uses: ruby/setup-ruby@ece82769428359c077b5a5eaff268902a303c101
+      uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
